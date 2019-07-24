@@ -1,9 +1,10 @@
 import React from 'react';
 
-exports.onRenderBody = ({ setHeadComponents }, pluginOptions) => {
+exports.onRenderBody = ({ setHeadComponents }, pluginOptions = {}) => {
+  const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
 
   // add the facebook pixel script by default to the page - it does not initialize or track anything to this point. :-)
-  if (process.env.NODE_ENV === `production`) {
+  if (pluginOptions.environments.includes(currentEnvironment)) {
     return setHeadComponents([
       <script
         key={`gatsby-plugin-gdpr-cookies`}
