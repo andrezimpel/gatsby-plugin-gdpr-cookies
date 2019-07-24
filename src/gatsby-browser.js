@@ -16,7 +16,7 @@ const isEnvironmentValid = (environments) => {
   return environments.includes(currentEnvironment);
 }
 
-export const onClientEntry = (undefined, pluginOptions = {}) => {
+export const onClientEntry = (_, pluginOptions = {}) => {
   const options = Object.assign(defaultOptions, pluginOptions);
 
   // check for the correct environment
