@@ -1,27 +1,66 @@
 import ReactGA from 'react-ga';
-
 import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
+const googleAnalyticsCookieName = 'gatsby-gdpr-google-analytics';
+const facebookPixelCookieName = 'gatsby-gdpr-facebook-pixel';
+const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
+const defaultOptions = {
+  environments: ['production'],
+  googleAnalytics: {
+    anonymize: true
+  }
+}
+
+const isEnvironmentValid = (environments) => {
+  return environments.includes(currentEnvironment);
+}
+
 export const onClientEntry = (undefined, pluginOptions = {}) => {
-  const cookies = new Cookies();
-  const googleAnalyticsTrackingId = pluginOptions.googleAnalytics.trackingId;
-  console.log(cookies);
+  const options = Object.assign(defaultOptions, pluginOptions);
 
-  console.log(cookies.get('cookie-analysis-acknowledged'));
+  // check for the correct environment
+  if (isEnvironmentValid(options.environments)) {
 
-  // setup analytics
-  ReactGA.initialize(googleAnalyticsTrackingId);
+    // - google analytics
 
-  window.fbq('init', '427433987845846');
+    // check if the tracking cookie exists
+    if (cookies.get(googleAnalyticsCookieName) === 'true') {
+      // initialize google analytics with the correct ga tracking id
+      ReactGA.initialize(options.googleAnalytics.trackingId);
+    }
+
+
+    // - facebook pixel
+
+    // check if the marketing cookie exists
+    if (cookies.get(facebookPixelCookieName) === 'true' && typeof window.fbq === `function`) {
+      // initialize the facebook pixel stuff with the pixe id
+      window.fbq('init', options.facebookPixel.pixelId);
+    }
+  }
 }
 
 export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
+  const options = Object.assign(defaultOptions, pluginOptions);
 
-  // ga tracking
-  ReactGA.set({ page: location.pathname, anonymizeIp: pluginOptions.googleAnalytics.anonymize });
-  ReactGA.pageview(location.pathname);
+  // check for the production environment
+  if (isEnvironmentValid(options.environments)) {
+
+    // if the ga tracking cookie exists, track the page
+    let gaAnonymize = options.googleAnalytics.anonymize;
+    gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
+
+    // check if the tracking cookie exists
+    if (cookies.get(googleAnalyticsCookieName) === 'true') {
+      ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize });
+      ReactGA.pageview(location.pathname);
+    }
 
 
-
-  window.fbq('track', 'PageView');
+    // if the fb pixel cookie exists, track the page
+    if (cookies.get(facebookPixelCookieName) === 'true' && typeof window.fbq === `function`) {
+      window.fbq('track', 'PageView');
+    }
+  }
 }
