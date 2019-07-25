@@ -25,6 +25,7 @@
     "facebook pixel"
   ],
   "license": "MIT",
+  "main": "index.js",
   "peerDependencies": {
     "gatsby": "^2.0.0",
     "react": "^16.4.2",
