@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-gdpr-cookies",
-  "description": "Gatsby plugin to add google analytics and facebook pixel in a gdpr form onto a site",
+  "description": "Gatsby plugin to add google analytics and facebook pixel in a gdpr form to your site",
   "version": "1.0.0",
   "author": "Andre Zimpel <andre@unknownbasics.com>",
   "bugs": {
