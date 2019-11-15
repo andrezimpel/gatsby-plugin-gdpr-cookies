@@ -51,8 +51,6 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
     // if the ga tracking cookie exists, track the page
     let gaAnonymize = options.googleAnalytics.anonymize;
     gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
-
-    console.log(ReactGA.ga);
     // check if the tracking cookie exists
     if (cookies.get(googleAnalyticsCookieName) === "true" && ReactGA.ga) {
       ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize });
