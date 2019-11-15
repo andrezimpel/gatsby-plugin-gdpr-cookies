@@ -25,7 +25,7 @@ export const onClientEntry = (_, pluginOptions = {}) => {
     // - google analytics
 
     // check if the tracking cookie exists
-    if (cookies.get(googleAnalyticsCookieName) === "true" && window.ga) {
+    if (cookies.get(googleAnalyticsCookieName) === "true") {
       // initialize google analytics with the correct ga tracking id
       ReactGA.initialize(options.googleAnalytics.trackingId);
     }
@@ -53,7 +53,7 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
     gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
 
     // check if the tracking cookie exists
-    if (cookies.get(googleAnalyticsCookieName) === "true") {
+    if (cookies.get(googleAnalyticsCookieName) === "true" && window.ga) {
       ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize });
       ReactGA.pageview(location.pathname);
     }
