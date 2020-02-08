@@ -18,12 +18,13 @@ module.exports = {
         googleAnalytics: {
           trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
           // Setting this parameter is optional
-          cookieName: 'YOUR_CUSTOM_COOKIE_NAME',
-          anonymize: true
+          cookieName: 'YOUR_CUSTOM_COOKIE_NAME', // default is gatsby-gdpr-google-analytics
+          anonymize: true // default is true
         },
         facebookPixel: {
           pixelId: 'YOUR_FACEBOOK_PIXEL_ID',
-          cookieName: 'YOUR_CUSTOM_COOKIE_NAME'
+          // Setting this parameter is optional
+          cookieName: 'YOUR_CUSTOM_COOKIE_NAME' // default is gatsby-gdpr-facebook-pixel
         },
         // Defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
