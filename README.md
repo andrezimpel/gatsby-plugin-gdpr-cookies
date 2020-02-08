@@ -18,10 +18,12 @@ module.exports = {
         googleAnalytics: {
           trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
           // Setting this parameter is optional
+          cookieName: 'YOUR_CUSTOM_COOKIE_NAME',
           anonymize: true
         },
         facebookPixel: {
-          pixelId: 'YOUR_FACEBOOK_PIXEL_ID'
+          pixelId: 'YOUR_FACEBOOK_PIXEL_ID',
+          cookieName: 'YOUR_CUSTOM_COOKIE_NAME'
         },
         // Defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
@@ -50,6 +52,10 @@ __Important:__ Please keep in mind to set the cookies. Otherwise the tracking wo
 
 Here you place your Google Analytics tracking id.
 
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
 #### `anonymize`
 
 Some countries (such as Germany) require you to use the
@@ -69,3 +75,7 @@ you can set a link e.g. in your imprint as follows:
 #### `pixelId`
 
 Here you place your Facebook Pixel id.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
