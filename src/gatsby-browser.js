@@ -1,6 +1,8 @@
 import ReactGA from "react-ga";
 import Cookies from "universal-cookie";
 
+import { validGATrackingId, validFbPixelId } from "./validTrackingId"
+
 const cookies = new Cookies();
 const currentEnvironment =
   process.env.ENV || process.env.NODE_ENV || "development";
@@ -26,8 +28,9 @@ export const onClientEntry = (_, pluginOptions = {}) => {
   if (isEnvironmentValid(options.environments)) {
     // - google analytics
 
-    // check if the tracking cookie exists
-    if (cookies.get(options.googleAnalytics.cookieName) === "true") {
+    // check if the tracking cookie exists & the ga tracking id is valid
+    if (cookies.get(options.googleAnalytics.cookieName) === "true" &&
+        validGATrackingId(options)) {
       // initialize google analytics with the correct ga tracking id
       ReactGA.initialize(options.googleAnalytics.trackingId);
     }
@@ -35,8 +38,10 @@ export const onClientEntry = (_, pluginOptions = {}) => {
     // - facebook pixel
 
     // check if the marketing cookie exists
-    if (cookies.get(options.facebookPixel.cookieName) === "true" && typeof window.fbq === `function`) {
-      // initialize the facebook pixel stuff with the pixe id
+    if (cookies.get(options.facebookPixel.cookieName) === "true" &&
+        validFbPixelId(options) &&
+        typeof window.fbq === `function`) {
+      // initialize the facebook pixel stuff with the pixel id
       window.fbq("init", options.facebookPixel.pixelId);
     }
   }
@@ -51,13 +56,17 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
     let gaAnonymize = options.googleAnalytics.anonymize;
     gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
     // check if the tracking cookie exists
-    if (cookies.get(options.googleAnalytics.cookieName) === "true" && ReactGA.ga) {
+    if (cookies.get(options.googleAnalytics.cookieName) === "true" &&
+        validGATrackingId(options) &&
+        ReactGA.ga) {
       ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize });
       ReactGA.pageview(location.pathname);
     }
 
     // if the fb pixel cookie exists, track the page
-    if (cookies.get(options.facebookPixel.cookieName) === "true" && typeof window.fbq === `function`) {
+    if (cookies.get(options.facebookPixel.cookieName) === "true" &&
+        validFbPixelId(options) &&
+        typeof window.fbq === `function`) {
       window.fbq("track", "PageView");
     }
   }

@@ -1,18 +1,20 @@
 import React from 'react';
 
+import { validFbPixelId } from "./validTrackingId"
+
 const defaultOptions = {
   environments: ['production'],
   googleAnalytics: {
     anonymize: true
   }
-}
+};
 
 exports.onRenderBody = ({ setHeadComponents }, pluginOptions = {}) => {
   const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
   const options = Object.assign(defaultOptions, pluginOptions);
 
-  // add the facebook pixel script by default to the page - it does not initialize or track anything to this point. :-)
-  if (options.environments.includes(currentEnvironment)) {
+  // Add the facebook pixel script to the page only if a valid pixelId is set
+  if (options.environments.includes(currentEnvironment) && validFbPixelId(options)) {
     return setHeadComponents([
       <script
         key={`gatsby-plugin-gdpr-cookies`}
