@@ -45,6 +45,8 @@ The page view will then be tracked on `onRouteUpdate`.
 
 __Important:__ Please keep in mind to set the cookies. Otherwise the tracking won't work! Tracking won't happen at all if there are no cookies or they are set so false.
 
+__Important 2:__ You can disable either Google Analytics or Facebook Pixel by just leaving the id blank.
+
 ## Options
 
 ### Google Analytics
