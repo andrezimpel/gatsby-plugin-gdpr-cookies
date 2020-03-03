@@ -111,6 +111,6 @@ exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, p
   }
 
   if(preBodyComponents.length) {
-    setHeadComponents(preBodyComponents);
+    setPreBodyComponents(preBodyComponents);
   }
 };
