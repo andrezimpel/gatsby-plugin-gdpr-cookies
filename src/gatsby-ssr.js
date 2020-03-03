@@ -1,25 +1,52 @@
-import React from 'react';
+import React from "react";
+import { oneLine, stripIndent } from "common-tags";
 
-import { validFbPixelId } from "./validTrackingId"
+import { validFbPixelId, validGTMTrackingId } from "./validTrackingId";
+import defaultOptions from "./defaultOptions";
 
-const defaultOptions = {
-  environments: ['production'],
-  googleAnalytics: {
-    anonymize: true
+const generateGTM = (id, environmentParamStr, dataLayerName) => stripIndent`
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl+'${environmentParamStr}';f.parentNode.insertBefore(j,f);
+  })(window,document,'script','${dataLayerName}', '${id}');`
+
+const generateGTMIframe = (id, environmentParamStr) =>
+  oneLine`<iframe src="https://www.googletagmanager.com/ns.html?id=${id}${environmentParamStr}" height="0" width="0" style="display: none; visibility: hidden"></iframe>`
+
+const generateGTMDefaultDataLayer = (dataLayer, reporter, dataLayerName) => {
+  let result = `window.${dataLayerName} = window.${dataLayerName} || [];`
+
+  if (dataLayer.type === `function`) {
+    result += `window.${dataLayerName}.push((${dataLayer.value})());`
+  } else {
+    if (dataLayer.type !== `object` || dataLayer.value.constructor !== Object) {
+      reporter.panic(
+        `Oops the plugin option "defaultDataLayer" should be a plain object. "${dataLayer}" is not valid.`
+      )
+    }
+
+    result += `window.${dataLayerName}.push(${JSON.stringify(
+      dataLayer.value
+    )});`
   }
-};
 
-exports.onRenderBody = ({ setHeadComponents }, pluginOptions = {}) => {
+  return stripIndent`${result}`
+}
+
+exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, pluginOptions = {}) => {
   const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
   const options = Object.assign(defaultOptions, pluginOptions);
+  const headComponents = []
+  const preBodyComponents = []
 
   // Add the facebook pixel script to the page only if a valid pixelId is set
   if (options.environments.includes(currentEnvironment) && validFbPixelId(options)) {
-    return setHeadComponents([
+    headComponents.push(
       <script
-        key={`gatsby-plugin-gdpr-cookies`}
+        key="gatsby-plugin-gdpr-cookies-google-analytics"
         dangerouslySetInnerHTML={{
-          __html: `
+          __html: oneLine`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
@@ -30,7 +57,60 @@ exports.onRenderBody = ({ setHeadComponents }, pluginOptions = {}) => {
             'https://connect.facebook.net/en_US/fbevents.js');
           `,
         }}
-      />,
-    ]);
+      />
+    );
+  }
+
+  // Add google tag manager script
+  if (options.environments.includes(currentEnvironment) && validGTMTrackingId(options)) {
+    const environmentParamStr =
+      options.googleTagManager.gtmAuth && options.googleTagManager.gtmPreview
+        ? oneLine`&gtm_auth=${options.googleTagManager.gtmAuth}&gtm_preview=${options.googleTagManager.gtmPreview}&gtm_cookies_win=x`
+        : ``
+
+    let defaultDataLayerCode = ``
+    if (options.googleTagManager.defaultDataLayer) {
+      defaultDataLayerCode = generateGTMDefaultDataLayer(
+        options.googleTagManager.defaultDataLayer,
+        reporter,
+        options.googleTagManager.dataLayerName
+      )
+    }
+
+    headComponents.push(
+      <script
+        key="gatsby-plugin-gdpr-cookies-google-tagmanager"
+        dangerouslySetInnerHTML={{
+          __html: oneLine`
+            ${defaultDataLayerCode}
+            ${generateGTM(
+              options.googleTagManager.trackingId,
+              environmentParamStr,
+              options.googleTagManager.dataLayerName
+            )}
+          `,
+        }}
+      />
+    )
+
+    preBodyComponents.push(
+      <noscript
+        key="gatsby-plugin-gdpr-cookies-google-tagmanager"
+        dangerouslySetInnerHTML={{
+          __html: generateGTMIframe(
+            options.googleTagManager.trackingId,
+            environmentParamStr
+          ),
+        }}
+      />
+    )
+  }
+
+  if(headComponents.length) {
+    setHeadComponents(headComponents);
+  }
+
+  if(preBodyComponents.length) {
+    setHeadComponents(preBodyComponents);
   }
 };
