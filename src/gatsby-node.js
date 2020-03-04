@@ -1,5 +1,5 @@
 exports.onPreInit = (args, options) => {
-  const { googleTagManager } = options;
+  const { googleTagManager } = options
 
   if (googleTagManager && googleTagManager.defaultDataLayer) {
     googleTagManager.defaultDataLayer = {
