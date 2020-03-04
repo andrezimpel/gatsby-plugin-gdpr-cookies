@@ -7,7 +7,7 @@ import {
   validGATrackingId,
   validFbPixelId,
   validGTMTrackingId,
-} from "./validTrackingId"
+} from "./valid-tracking-id"
 
 const cookies = new Cookies()
 const currentEnvironment =
