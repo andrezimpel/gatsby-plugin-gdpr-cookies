@@ -1,6 +1,6 @@
 # gatsby-plugin-gdpr-cookies
 
-Gatsby plugin to add google analytics and facebook pixel in a gdpr form to your site.
+Gatsby plugin to add google analytics and facebook pixel in a GDPR form to your site.
 
 ## Install
 
@@ -9,24 +9,27 @@ Gatsby plugin to add google analytics and facebook pixel in a gdpr form to your 
 ## How to use
 
 ```javascript
-// In your gatsby-config.js
+// in your gatsby-config.js
 module.exports = {
   plugins: [
     {
       resolve: `gatsby-plugin-gdpr-cookies`,
       options: {
         googleAnalytics: {
-          trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID',
-          // Setting this parameter is optional
-          cookieName: 'YOUR_CUSTOM_COOKIE_NAME', // default is gatsby-gdpr-google-analytics
-          anonymize: true // default is true
+          trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-google-analytics', // default
+          anonymize: true // default
+        },
+        googleTagManager: {
+          trackingId: 'YOUR_GOOGLE_TAG_MANAGER_TRACKING_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-google-tagmanager', // default
+          dataLayerName: 'dataLayer', // default
         },
         facebookPixel: {
-          pixelId: 'YOUR_FACEBOOK_PIXEL_ID',
-          // Setting this parameter is optional
-          cookieName: 'YOUR_CUSTOM_COOKIE_NAME' // default is gatsby-gdpr-facebook-pixel
+          pixelId: 'YOUR_FACEBOOK_PIXEL_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-facebook-pixel', // default
         },
-        // Defines the environments where the tracking should be available  - default is ["production"]
+        // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
       },
     },
@@ -35,17 +38,16 @@ module.exports = {
 ```
 
 ## How it works
-First of all the plugin checks in which environment your site is running. If it's currently running in one of your defined environments it will add the Facebook Pixel javascript by default to the `<head>` of your site. It will not be activated or initialized by this.
 
-By default this plugin will not send any data to Google or Facebook to make it GDPR compliant. The user first needs to accept your cookie policy. By accepting that you need to set two cookies - `gatsby-gdpr-google-analytics` and `gatsby-gdpr-facebook-pixel`. Depending on the user input the value of each of the cookies should be `true` or `false`.
+First of all the plugin checks in which environment your site is running. If it's currently running in one of your defined environments it will add the tracking code by default to the `<head>/<body>` of your site. It will not be activated or initialized by this.
 
-If the `gatsby-gdpr-google-analytics` cookie is set to true, Google Analytics will be initialized `onClientEntry`. Same is for the Facebook Pixel.
+By default this plugin will not send any data to Google or Facebook to make it GDPR compliant. The user first needs to accept your cookie policy. By accepting that you need to set cookies for the tracker you want to use - `gatsby-gdpr-google-analytics`, `gatsby-gdpr-google-tagmanager`, `gatsby-gdpr-facebook-pixel`. Depending on the user input the value of each of the cookies should be `true` or `false`.
+
+If the `gatsby-gdpr-google-analytics` cookie is set to true, Google Analytics will be initialized `onClientEntry`. Same is for the Google Tag Manager and Facebook Pixel.
 
 The page view will then be tracked on `onRouteUpdate`.
 
-__Important:__ Please keep in mind to set the cookies. Otherwise the tracking won't work! Tracking won't happen at all if there are no cookies or they are set so false.
-
-__Important 2:__ You can disable either Google Analytics or Facebook Pixel by just leaving the id blank.
+__Important:__ read below about using the plugin with Google Tag Manager.
 
 ## Options
 
@@ -53,7 +55,7 @@ __Important 2:__ You can disable either Google Analytics or Facebook Pixel by ju
 
 #### `trackingId`
 
-Here you place your Google Analytics tracking id.
+Here you place your Google Analytics tracking ID.
 
 #### `cookieName`
 
@@ -73,11 +75,57 @@ you can set a link e.g. in your imprint as follows:
 
 `<a href="javascript:gaOptout();">Deactivate Google Analytics</a>`
 
+### Google Tag Manager
+
+#### `trackingId`
+
+Here you place your Google Tag Manager tracking ID.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
+#### `dataLayerName`
+
+Data layer name
+
+#### `gtmAuth`
+
+Google Tag Manager environment auth string
+
+#### `gtmPreview`
+
+Google Tag Manager environment preview name
+
+#### `defaultDataLayer`
+
+Data layer to be set before GTM is loaded. Should be an object or a function that is executed in the browser, e.g.:
+
+```javascript
+  defaultDataLayer: { platform: "gatsby" }
+```
+
+```javascript
+  defaultDataLayer: function() {
+    return {
+      pageType: window.pageType,
+    }
+  }
+```
+
+#### Tracking routes
+
+Out of the box this plugin will simply load Google Tag Manager on the initial page/app load. It’s up to you to fire tags based on changes in your app.
+
+This plugin will fire a new event called `gatsbyRouteChange` on Gatsby's `onRouteUpdate` (only if the consent was given by a visitor). To record this in Google Tag Manager, we will need to add a trigger to the desired tag to listen for the event:
+
+In order to do that, go to _Tags_. Under _Triggering_ click the pencil icon, then the ”+” button to add a new trigger. In the _Choose a trigger_ window, click on the ”+” button again. Choose the trigger type by clicking the pencil button and clicking _Custom event_. For event name, enter `gatsbyRouteChange`. This tag will now catch every route change in Gatsby, and you can add Google tag services as you wish to it.
+
 ### Facebook Pixel
 
 #### `pixelId`
 
-Here you place your Facebook Pixel id.
+Here you place your Facebook Pixel ID.
 
 #### `cookieName`
 
