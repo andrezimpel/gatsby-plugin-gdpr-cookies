@@ -48,7 +48,7 @@ exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, p
       <script
         key="gatsby-plugin-gdpr-cookies-google-analytics"
         dangerouslySetInnerHTML={{
-          __html: oneLine`
+          __html: stripIndent`
             !function(f,b,e,v,n,t,s)
             {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
             n.callMethod.apply(n,arguments):n.queue.push(arguments)};
