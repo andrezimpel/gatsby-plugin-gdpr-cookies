@@ -5,17 +5,17 @@ import merge from "lodash/merge";
 import { validFbPixelId, validGTMTrackingId } from "./validTrackingId";
 import defaultOptions from "./defaultOptions";
 
-const generateGTM = (id, environmentParamStr, dataLayerName) => stripIndent`
+const generateGTM = (id, dataLayerName, environmentParamStr) => stripIndent`
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
   new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
   j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   'https://www.googletagmanager.com/gtm.js?id='+i+dl+'${environmentParamStr}';f.parentNode.insertBefore(j,f);
-  })(window,document,'script','${dataLayerName}', '${id}');`
+  })(window,document,'script','${dataLayerName}', '${id}');`;
 
 const generateGTMIframe = (id, environmentParamStr) =>
-  oneLine`<iframe src="https://www.googletagmanager.com/ns.html?id=${id}${environmentParamStr}" height="0" width="0" style="display: none; visibility: hidden"></iframe>`
+  oneLine`<iframe src="https://www.googletagmanager.com/ns.html?id=${id}${environmentParamStr}" height="0" width="0" style="display: none; visibility: hidden"></iframe>`;
 
-const generateGTMDefaultDataLayer = (dataLayer, reporter, dataLayerName) => {
+const generateGTMDefaultDataLayer = (dataLayer, dataLayerName, reporter) => {
   let result = `window.${dataLayerName} = window.${dataLayerName} || [];`
 
   if (dataLayer.type === `function`) {
@@ -26,7 +26,6 @@ const generateGTMDefaultDataLayer = (dataLayer, reporter, dataLayerName) => {
         `Oops the plugin option "defaultDataLayer" should be a plain object. "${dataLayer}" is not valid.`
       )
     }
-
     result += `window.${dataLayerName}.push(${JSON.stringify(
       dataLayer.value
     )});`
@@ -35,13 +34,15 @@ const generateGTMDefaultDataLayer = (dataLayer, reporter, dataLayerName) => {
   return stripIndent`${result}`
 }
 
+// add scripts
+
 exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, pluginOptions = {}) => {
   const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
   const options = merge(defaultOptions, pluginOptions);
   const headComponents = []
   const preBodyComponents = []
 
-  // Add the facebook pixel script to the page only if a valid pixelId is set
+  // facebook pixel
   if (options.environments.includes(currentEnvironment) && validFbPixelId(options)) {
     headComponents.push(
       <script
@@ -62,19 +63,23 @@ exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, p
     );
   }
 
-  // Add google tag manager script
+  // google tag manager
   if (options.environments.includes(currentEnvironment) && validGTMTrackingId(options)) {
-    const environmentParamStr =
-      options.googleTagManager.gtmAuth && options.googleTagManager.gtmPreview
-        ? oneLine`&gtm_auth=${options.googleTagManager.gtmAuth}&gtm_preview=${options.googleTagManager.gtmPreview}&gtm_cookies_win=x`
-        : ``
+    const { googleTagManager } = options;
+
+    let environmentParamStr = ``;
+    if (googleTagManager.gtmAuth && googleTagManager.gtmPreview) {
+      environmentParamStr = oneLine`
+        &gtm_auth=${googleTagManager.gtmAuth}&gtm_preview=${googleTagManager.gtmPreview}&gtm_cookies_win=x
+      `
+    }
 
     let defaultDataLayerCode = ``
-    if (options.googleTagManager.defaultDataLayer) {
+    if (googleTagManager.defaultDataLayer) {
       defaultDataLayerCode = generateGTMDefaultDataLayer(
-        options.googleTagManager.defaultDataLayer,
-        reporter,
-        options.googleTagManager.dataLayerName
+        googleTagManager.defaultDataLayer,
+        googleTagManager.dataLayerName,
+        reporter
       )
     }
 
@@ -85,9 +90,9 @@ exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, p
           __html: oneLine`
             ${defaultDataLayerCode}
             ${generateGTM(
-              options.googleTagManager.trackingId,
-              environmentParamStr,
-              options.googleTagManager.dataLayerName
+              googleTagManager.trackingId,
+              googleTagManager.dataLayerName,
+              environmentParamStr
             )}
           `,
         }}
@@ -99,13 +104,15 @@ exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, p
         key="gatsby-plugin-gdpr-cookies-google-tagmanager"
         dangerouslySetInnerHTML={{
           __html: generateGTMIframe(
-            options.googleTagManager.trackingId,
+            googleTagManager.trackingId,
             environmentParamStr
           ),
         }}
       />
     )
   }
+
+  // add scripts
 
   if(headComponents.length) {
     setHeadComponents(headComponents);

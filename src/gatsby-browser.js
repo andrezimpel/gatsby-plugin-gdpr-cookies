@@ -2,13 +2,12 @@ import ReactGA from "react-ga";
 import Cookies from "universal-cookie";
 import merge from "lodash/merge";
 
-import defaultOptions from "./defaultOptions"
-
+import defaultOptions from "./defaultOptions";
 import {
   validGATrackingId,
   validFbPixelId,
   validGTMTrackingId
-} from "./validTrackingId"
+} from "./validTrackingId";
 
 const cookies = new Cookies();
 const currentEnvironment =
@@ -18,93 +17,89 @@ const isEnvironmentValid = environments => {
   return environments.includes(currentEnvironment);
 };
 
+// init
+
 export const onClientEntry = (_, pluginOptions = {}) => {
   const options = merge(defaultOptions, pluginOptions);
 
-  // check for the correct environment
   if (isEnvironmentValid(options.environments)) {
-    // - google analytics
-
-    // check if the tracking cookie exists & the ga tracking id is valid
+    // google analytics
     if (
       cookies.get(options.googleAnalytics.cookieName) === "true" &&
       validGATrackingId(options)
     ) {
-      // initialize google analytics with the correct ga tracking id
       ReactGA.initialize(options.googleAnalytics.trackingId);
     }
 
-    // - google tagmanager
-
-    // check if the tracking cookie exists & the ga tracking id is valid
+    // google tagmanager
     if (
       cookies.get(options.googleTagManager.cookieName) === "true" &&
       validGTMTrackingId(options)
     ) {
-      const data = options.googleTagManager.dataLayerName
-        ? window[options.googleTagManager.dataLayerName]
-        : window.dataLayer
+      setTimeout(() => {
+        const data = options.googleTagManager.dataLayerName
+          ? window[options.googleTagManager.dataLayerName]
+          : window.dataLayer;
 
-      if(typeof data === "object") {
-        data.push({ event: "cookieAllowed" })
-      }
+        if(typeof data === "object") {
+          alert("cookieAllowed")
+          data.push({ event: "cookieAllowed" });
+        }
+      }, 50);
     }
 
-    // - facebook pixel
-
-    // check if the marketing cookie exists
+    // facebook pixel
     if (
       cookies.get(options.facebookPixel.cookieName) === "true" &&
       validFbPixelId(options) &&
       typeof window.fbq === `function`
     ) {
-      // initialize the facebook pixel stuff with the pixel id
       window.fbq("init", options.facebookPixel.pixelId);
     }
   }
 };
 
+// track
+
 export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
   const options = merge(defaultOptions, pluginOptions);
 
-  // check for the production environment
   if (isEnvironmentValid(options.environments)) {
-    // if the ga tracking cookie exists, track the page
-    let gaAnonymize = options.googleAnalytics.anonymize;
-    gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
-
-    // check if the ga tracking cookie exists
+    // google analytics
     if (
       cookies.get(options.googleAnalytics.cookieName) === "true" &&
       validGATrackingId(options) &&
       ReactGA.ga
     ) {
+      let gaAnonymize = options.googleAnalytics.anonymize;
+      gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true;
       ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize });
       ReactGA.pageview(location.pathname);
     }
 
-    // if the google tag manager cookie exists, track the page
+    // google tag manager
     if (
       cookies.get(options.googleTagManager.cookieName) === "true" &&
       validGTMTrackingId(options)
     ) {
-      // wrap inside a timeout to ensure the title has properly been changed
       setTimeout(() => {
         const data = options.googleTagManager.dataLayerName
           ? window[options.googleTagManager.dataLayerName]
-          : window.dataLayer
+          : window.dataLayer;
 
         if(typeof data === "object") {
-          data.push({ event: "gatsbyRouteChange" })
+          alert("gatsbyRouteChange")
+          data.push({ event: "gatsbyRouteChange" });
         }
-      }, 50)
+      }, 50);
     }
 
-    // if the fb pixel cookie exists, track the page
+    // facebook pixel
     if (
       cookies.get(options.facebookPixel.cookieName) === "true" &&
-        validFbPixelId(options) &&
-        typeof window.fbq === `function`) {
+      validFbPixelId(options) &&
+      typeof window.fbq === `function`
+    ) {
       window.fbq("track", "PageView");
     }
   }
