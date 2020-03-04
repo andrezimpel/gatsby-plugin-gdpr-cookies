@@ -1,5 +1,6 @@
 import ReactGA from "react-ga";
 import Cookies from "universal-cookie";
+import merge from "lodash/merge";
 
 import defaultOptions from "./defaultOptions"
 
@@ -18,7 +19,7 @@ const isEnvironmentValid = environments => {
 };
 
 export const onClientEntry = (_, pluginOptions = {}) => {
-  const options = Object.assign(defaultOptions, pluginOptions);
+  const options = merge(defaultOptions, pluginOptions);
 
   // check for the correct environment
   if (isEnvironmentValid(options.environments)) {
@@ -65,7 +66,7 @@ export const onClientEntry = (_, pluginOptions = {}) => {
 };
 
 export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
-  const options = Object.assign(defaultOptions, pluginOptions);
+  const options = merge(defaultOptions, pluginOptions);
 
   // check for the production environment
   if (isEnvironmentValid(options.environments)) {

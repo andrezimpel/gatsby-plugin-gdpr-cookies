@@ -1,5 +1,6 @@
 import React from "react";
 import { oneLine, stripIndent } from "common-tags";
+import merge from "lodash/merge";
 
 import { validFbPixelId, validGTMTrackingId } from "./validTrackingId";
 import defaultOptions from "./defaultOptions";
@@ -36,7 +37,7 @@ const generateGTMDefaultDataLayer = (dataLayer, reporter, dataLayerName) => {
 
 exports.onRenderBody = ({ setHeadComponents, setPreBodyComponents, reporter }, pluginOptions = {}) => {
   const currentEnvironment = process.env.ENV || process.env.NODE_ENV || "development";
-  const options = Object.assign(defaultOptions, pluginOptions);
+  const options = merge(defaultOptions, pluginOptions);
   const headComponents = []
   const preBodyComponents = []
 
