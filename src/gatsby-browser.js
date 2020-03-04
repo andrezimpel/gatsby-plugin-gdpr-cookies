@@ -46,7 +46,6 @@ export const onClientEntry = (_, pluginOptions = {}) => {
         : window.dataLayer
 
       if(typeof data === "object") {
-        alert("cookieAllowed")
         data.push({ event: "cookieAllowed" })
       }
     }
@@ -96,7 +95,6 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
           : window.dataLayer
 
         if(typeof data === "object") {
-          alert("gatsbyRouteChange")
           data.push({ event: "gatsbyRouteChange" })
         }
       }, 50)
