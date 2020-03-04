@@ -1,7 +1,7 @@
 export default {
   environments: ["production"],
   googleAnalytics: {
-    cookieName: "gatsby-gdpr-google-analytics"
+    cookieName: "gatsby-gdpr-google-analytics",
     anonymize: true,
   },
   googleTagManager: {
@@ -9,6 +9,6 @@ export default {
     dataLayerName: "dataLayer",
   },
   facebookPixel: {
-    cookieName: "gatsby-gdpr-facebook-pixel"
-  }
+    cookieName: "gatsby-gdpr-facebook-pixel",
+  },
 };
