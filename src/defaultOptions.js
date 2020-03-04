@@ -1,8 +1,8 @@
 export default {
   environments: ["production"],
   googleAnalytics: {
-    anonymize: true,
     cookieName: "gatsby-gdpr-google-analytics"
+    anonymize: true,
   },
   googleTagManager: {
     cookieName: "gatsby-gdpr-google-tagmanager",

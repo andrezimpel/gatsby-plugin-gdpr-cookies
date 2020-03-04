@@ -31,22 +31,6 @@ export const onClientEntry = (_, pluginOptions = {}) => {
       ReactGA.initialize(options.googleAnalytics.trackingId);
     }
 
-    // google tagmanager
-    if (
-      cookies.get(options.googleTagManager.cookieName) === "true" &&
-      validGTMTrackingId(options)
-    ) {
-      setTimeout(() => {
-        const data = options.googleTagManager.dataLayerName
-          ? window[options.googleTagManager.dataLayerName]
-          : window.dataLayer;
-
-        if(typeof data === "object") {
-          data.push({ event: "cookieAllowed" });
-        }
-      }, 50);
-    }
-
     // facebook pixel
     if (
       cookies.get(options.facebookPixel.cookieName) === "true" &&
