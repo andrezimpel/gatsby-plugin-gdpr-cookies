@@ -9,6 +9,7 @@
   "dependencies": {
     "@babel/runtime": "^7.8.4",
     "common-tags": "^1.8.0",
+    "minimist": "^1.2.5",
     "react-ga": "^2.7.0",
     "universal-cookie": "^4.0.3"
   },
