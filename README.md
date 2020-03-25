@@ -147,3 +147,14 @@ Here you place your Facebook Pixel ID.
 #### `cookieName`
 
 You can use a custom cookie name if you need to!
+
+
+## Contributors
+
+Thanks goes to these wonderful people who helped shaping this project.
+
+[Simon Vanherweghe](https://github.com/SimonVanherweghe)
+
+[Stefan Tertan](https://github.com/ColdFire87)
+
+[Osvaldas Valutis](https://github.com/osvaldasvalutis)
