@@ -71,7 +71,24 @@ ga('set', 'anonymizeIp', 1);
 If your visitors should be able to set an Opt-Out-Cookie (No future tracking)
 you can set a link e.g. in your imprint as follows:
 
-`<a href="javascript:gaOptout();">Deactivate Google Analytics</a>`
+```javascript
+import ReactGA from 'react-ga';
+
+render() {
+  return (
+    <div>
+      <ReactGA.OutboundLink
+        eventLabel="myLabel"
+        to="http://www.example.com"
+        target="_blank"
+        trackerNames={['tracker2']}
+      >
+        My Link
+      </ReactGA.OutboundLink>
+    </div>
+  );
+}
+```
 
 ### Facebook Pixel
 
