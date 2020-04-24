@@ -106,6 +106,11 @@ You can use a custom cookie name if you need to!
 
 Data layer name
 
+#### `routeChangeEvent`
+
+The name of the event which will be triggered when route changes
+Defaults to `gatsbyRouteChange`
+
 #### `gtmAuth`
 
 Google Tag Manager environment auth string

@@ -71,7 +71,8 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
           : window.dataLayer
 
         if (typeof data === `object`) {
-          data.push({ event: `gatsbyRouteChange` })
+          const eventName = options.googleTagManager.routeChangeEvent || `gatsbyRouteChange`
+          data.push({ event: eventName })
         }
       }, 50)
     }
