@@ -139,7 +139,7 @@ Data layer to be set before GTM is loaded. Should be an object or a function tha
 
 Out of the box this plugin will simply load Google Tag Manager on the initial page/app load. It’s up to you to fire tags based on changes in your app.
 
-This plugin will fire a new event called `gatsbyRouteChange` on Gatsby's `onRouteUpdate` (only if the consent was given by a visitor). To record this in Google Tag Manager, we will need to add a trigger to the desired tag to listen for the event:
+This plugin will fire a new event called `gatsbyRouteChange` (by default) on Gatsby's `onRouteUpdate` (only if the consent was given by a visitor). To record this in Google Tag Manager, we will need to add a trigger to the desired tag to listen for the event:
 
 In order to do that, go to _Tags_. Under _Triggering_ click the pencil icon, then the ”+” button to add a new trigger. In the _Choose a trigger_ window, click on the ”+” button again. Choose the trigger type by clicking the pencil button and clicking _Custom event_. For event name, enter `gatsbyRouteChange`. This tag will now catch every route change in Gatsby, and you can add Google tag services as you wish to it.
 
