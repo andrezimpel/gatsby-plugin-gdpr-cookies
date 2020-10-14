@@ -69,8 +69,10 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
       ReactGA.ga
     ) {
       let gaAnonymize = options.googleAnalytics.anonymize
+      let gaAllowAdFeatures = options.googleAnalytics.allowAdFeatures
       gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
-      ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize })
+      gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
+      ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize, allowAdFeatures: gaAllowAdFeatures })
       ReactGA.pageview(location.pathname)
     }
 

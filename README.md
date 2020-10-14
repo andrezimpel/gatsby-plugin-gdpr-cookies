@@ -18,7 +18,8 @@ module.exports = {
         googleAnalytics: {
           trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID', // leave empty if you want to disable the tracker
           cookieName: 'gatsby-gdpr-google-analytics', // default
-          anonymize: true // default
+          anonymize: true, // default
+          allowAdFeatures: false // default
         },
         googleTagManager: {
           trackingId: 'YOUR_GOOGLE_TAG_MANAGER_TRACKING_ID', // leave empty if you want to disable the tracker
@@ -60,6 +61,10 @@ Here you place your Google Analytics tracking ID.
 #### `cookieName`
 
 You can use a custom cookie name if you need to!
+
+#### `allowAdFeatures`
+
+The default value is false.
 
 #### `anonymize`
 

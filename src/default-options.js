@@ -3,6 +3,7 @@ export default {
   googleAnalytics: {
     cookieName: `gatsby-gdpr-google-analytics`,
     anonymize: true,
+    allowAdFeatures: false
   },
   googleTagManager: {
     cookieName: `gatsby-gdpr-google-tagmanager`,
