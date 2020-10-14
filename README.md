@@ -1,6 +1,6 @@
 # gatsby-plugin-gdpr-cookies
 
-Gatsby plugin to add google analytics and facebook pixel in a GDPR form to your site.
+Gatsby plugin to add google analytics, google tag manager and facebook pixel in a GDPR form to your site.
 
 ## Install
 
@@ -43,9 +43,9 @@ First of all the plugin checks in which environment your site is running. If it'
 
 By default this plugin will not send any data to Google or Facebook to make it GDPR compliant. The user first needs to accept your cookie policy. By accepting that you need to set cookies for the tracker you want to use - `gatsby-gdpr-google-analytics`, `gatsby-gdpr-google-tagmanager`, `gatsby-gdpr-facebook-pixel`. Depending on the user input the value of each of the cookies should be `true` or `false`.
 
-If the `gatsby-gdpr-google-analytics` cookie is set to true, Google Analytics will be initialized `onClientEntry`. Same is for the Google Tag Manager and Facebook Pixel.
+If the `gatsby-gdpr-google-analytics` cookie is set to true, Google Analytics will be initialized `onClientEntry`. Same is for the Google Tag Manager and Facebook Pixel. The plugin will check if any of the services has been initialized between route changes on `onRouteUpdate`. Reloading the page after setting the cookies is not required anymore.
 
-The page view will then be tracked on `onRouteUpdate`.
+The page view will be tracked on `onRouteUpdate`.
 
 __Important:__ read below about using the plugin with Google Tag Manager.
 
