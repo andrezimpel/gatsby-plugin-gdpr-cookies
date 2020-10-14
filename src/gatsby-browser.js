@@ -24,31 +24,45 @@ export const onClientEntry = (_, pluginOptions = {}) => {
 
   if (isEnvironmentValid(options.environments)) {
     // google analytics
-    if (
-      cookies.get(options.googleAnalytics.cookieName) === `true` &&
-      validGATrackingId(options)
-    ) {
-      ReactGA.initialize(options.googleAnalytics.trackingId)
-    }
+    initGoogleAnalytics(options)
 
     // facebook pixel
-    if (
-      cookies.get(options.facebookPixel.cookieName) === `true` &&
-      validFbPixelId(options) &&
-      typeof window.fbq === `function`
-    ) {
-      window.fbq(`init`, options.facebookPixel.pixelId)
-    }
+    initFacebookPixel(options)
   }
 }
 
-// track
+// initializing helpers
+const initGoogleAnalytics = (options) => {
+  if (
+    cookies.get(options.googleAnalytics.cookieName) === `true` &&
+    validGATrackingId(options)
+  ) {
+    ReactGA.initialize(options.googleAnalytics.trackingId)
+    window.GoogleAnalyticsIntialized = true
+  }
+}
 
+const initFacebookPixel = (options) => {
+  if (
+    cookies.get(options.facebookPixel.cookieName) === `true` &&
+    validFbPixelId(options) &&
+    typeof window.fbq === `function`
+  ) {
+    window.fbq(`init`, options.facebookPixel.pixelId)
+    window.FacebookPixelInitialized = true
+  }
+}
+
+const checkIfGoogleAnalyticsIsInitilized = () => !!window.GoogleAnalyticsIntialized
+const checkIfFacebookPixelIsInitilized = () => !!window.FacebookPixelInitialized
+
+// track
 export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
   const options = merge(defaultOptions, pluginOptions)
 
   if (isEnvironmentValid(options.environments)) {
     // google analytics
+    if (!checkIfGoogleAnalyticsIsInitilized()) initGoogleAnalytics(options);
     if (
       cookies.get(options.googleAnalytics.cookieName) === `true` &&
       validGATrackingId(options) &&
@@ -77,6 +91,7 @@ export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
     }
 
     // facebook pixel
+    if (!checkIfFacebookPixelIsInitilized()) initFacebookPixel(options);
     if (
       cookies.get(options.facebookPixel.cookieName) === `true` &&
       validFbPixelId(options) &&
