@@ -2,6 +2,8 @@
 
 Gatsby plugin to add google analytics, google tag manager and facebook pixel in a GDPR form to your site.
 
+**Important:** It now supports tracking right away without reloading the page. [See here](#initialize-and-track).
+
 ## Install
 
 `npm install --save gatsby-plugin-gdpr-cookies`
@@ -48,7 +50,7 @@ If the `gatsby-gdpr-google-analytics` cookie is set to true, Google Analytics wi
 
 The page view will be tracked on `onRouteUpdate`.
 
-__Important:__ read below about using the plugin with Google Tag Manager.
+**Important:** read below about using the plugin with Google Tag Manager.
 
 ## Options
 
@@ -158,6 +160,20 @@ Here you place your Facebook Pixel ID.
 
 You can use a custom cookie name if you need to!
 
+## Initialize and track
+This gatsby plugin now supports initializing and tracking right after a user accepts the cookie consent.
+
+```javascript
+// in your cookie banner
+import { useLocation } from "@reach/router" // this helps tracking the location
+import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
+```
+Then you can execute `initializeAndTrack(location)` in your cookie banner callback. This will initialize the the plugin with your options from the `gatsby-config.js` and than starts tracking the user based on the cookies/services are accepted.
+
+```javascript
+// in your cookie banner
+initializeAndTrack(location)
+```
 
 ## Contributors
 
