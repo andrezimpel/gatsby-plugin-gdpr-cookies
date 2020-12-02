@@ -38,7 +38,12 @@
     "gatsby",
     "gatsby-plugin",
     "google analytics",
-    "facebook pixel"
+    "facebook pixel",
+    "google tag manager",
+    "gdpr cookies",
+    "dsgvo",
+    "cookies",
+    "cookie consent"
   ],
   "license": "MIT",
   "main": "index.js",
