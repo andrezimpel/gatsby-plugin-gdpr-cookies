@@ -168,3 +168,7 @@ Thanks goes to these wonderful people who helped shaping this project.
 [Stefan Tertan](https://github.com/ColdFire87)
 
 [Osvaldas Valutis](https://github.com/osvaldasvalutis)
+
+[Théo](https://github.com/3theochp)
+
+[Stefan Tertan](https://github.com/ColdFire87)
