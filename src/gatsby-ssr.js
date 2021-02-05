@@ -46,6 +46,15 @@ exports.onRenderBody = (
   const headComponents = []
   const preBodyComponents = []
 
+  // add pre connection to analytics
+  headComponents.push(
+    <link
+      rel="preconnect dns-prefetch"
+      key="preconnect-google-analytics"
+      href="https://www.google-analytics.com"
+    />
+  )
+
   // facebook pixel
   if (
     options.environments.includes(currentEnvironment) &&
@@ -53,7 +62,7 @@ exports.onRenderBody = (
   ) {
     headComponents.push(
       <script
-        key="gatsby-plugin-gdpr-cookies-google-analytics"
+        key="gatsby-plugin-gdpr-cookies-facebook-pixel"
         dangerouslySetInnerHTML={{
           __html: stripIndent`
             !function(f,b,e,v,n,t,s)
@@ -69,6 +78,23 @@ exports.onRenderBody = (
       />
     )
   }
+
+  const { googleAnalytics } = options
+
+  // Hey window['ga-disable-MEASUREMENT_ID'] = true;
+  headComponents.push(
+    <script
+      key="gatsby-plugin-gdpr-cookies-google-gtag-disable"
+      dangerouslySetInnerHTML={{
+        __html: stripIndent`
+          window['ga-disable-${googleAnalytics.trackingId}'] = true
+        `,
+      }}
+    />
+  )
+  headComponents.push(
+    <script key="gatsby-plugin-gdpr-cookies-google-gtag-script" async src={`https://www.googletagmanager.com/gtag/js?id=${googleAnalytics.trackingId}`}></script>
+  )
 
   // google tag manager
   if (

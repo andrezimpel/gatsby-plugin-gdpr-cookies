@@ -187,4 +187,6 @@ Thanks goes to these wonderful people who helped shaping this project.
 
 [Théo](https://github.com/3theochp)
 
-[Stefan Tertan](https://github.com/ColdFire87)
+[Paul Brickles](https://github.com/pbrickles)
+
+[Ferran Buireu](https://github.com/fbuireu)

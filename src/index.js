@@ -1,4 +1,3 @@
-import ReactGA from "react-ga"
 import Cookies from "universal-cookie"
 
 import {
@@ -22,7 +21,20 @@ const initGoogleAnalytics = (options) => {
     cookies.get(options.googleAnalytics.cookieName) === `true` &&
     validGATrackingId(options)
   ) {
-    ReactGA.initialize(options.googleAnalytics.trackingId)
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function(){window.dataLayer.push(arguments);}
+    window.gtag('js', new Date())
+    window[`ga-disable-${options.googleAnalytics.trackingId}`] = false
+
+    let gaAnonymize = options.googleAnalytics.anonymize
+    let gaAllowAdFeatures = options.googleAnalytics.allowAdFeatures
+    gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
+    gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
+
+    window.gtag('config', options.googleAnalytics.trackingId, {
+      'anonymize_ip': gaAnonymize,
+      'allow_google_signals': gaAllowAdFeatures
+    })
     window.GoogleAnalyticsIntialized = true
   }
 }
@@ -55,18 +67,16 @@ export const trackVisit = (options, location) => {
   if (isEnvironmentValid(options.environments)) {
     // google analytics
     if (!checkIfGoogleAnalyticsIsInitilized()) initGoogleAnalytics(options);
+
+    // also look fot gtag
     if (
       cookies.get(options.googleAnalytics.cookieName) === `true` &&
       validGATrackingId(options) &&
-      ReactGA.ga
+      typeof window.gtag === "function"
     ) {
-      console.log('tracking analytics');
-      let gaAnonymize = options.googleAnalytics.anonymize
-      let gaAllowAdFeatures = options.googleAnalytics.allowAdFeatures
-      gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
-      gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
-      ReactGA.set({ page: location.pathname, anonymizeIp: gaAnonymize, allowAdFeatures: gaAllowAdFeatures })
-      ReactGA.pageview(location.pathname)
+      const pagePath = location ? location.pathname + location.search + location.hash : undefined
+
+      window.gtag(`event`, `page_view`, { page_path: pagePath })
     }
 
     // google tag manager
