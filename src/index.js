@@ -36,6 +36,8 @@ const initGoogleAnalytics = (options) => {
       'allow_google_signals': gaAllowAdFeatures
     })
     window.GoogleAnalyticsIntialized = true
+  } else {
+    window[`ga-disable-${options.googleAnalytics.trackingId}`] = true
   }
 }
 
