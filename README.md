@@ -186,10 +186,7 @@ Thanks goes to these wonderful people who helped shaping this project.
 [Osvaldas Valutis](https://github.com/osvaldasvalutis)
 
 [Théo](https://github.com/3theochp)
-<<<<<<< HEAD
 
 [Paul Brickles](https://github.com/pbrickles)
 
 [Ferran Buireu](https://github.com/fbuireu)
-=======
->>>>>>> e75d33ec6a0290898415603b834065a9cb43d1b3
