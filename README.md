@@ -1,11 +1,13 @@
 # gatsby-plugin-gdpr-cookies
 
-Gatsby plugin to add google analytics, google tag manager and facebook pixel in a GDPR form to your site.
+Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager and Facebook Pixel in a GDPR form to your site.
 
 **Important:** It now supports tracking right away without reloading the page. [See here](#initialize-and-track).
 
 ## Install
 
+`yarn add gatsby-plugin-gdpr-cookies`
+or
 `npm install --save gatsby-plugin-gdpr-cookies`
 
 ## How to use
@@ -58,7 +60,7 @@ The page view will be tracked on `onRouteUpdate`.
 
 #### `trackingId`
 
-Here you place your Google Analytics tracking ID.
+Here you place your Google Analytics tracking ID. Analytics 4 is supported by the plugin beginning with v1.0.12.
 
 #### `cookieName`
 
@@ -77,26 +79,11 @@ Some countries (such as Germany) require you to use the
 ga('set', 'anonymizeIp', 1);
 ```
 
-If your visitors should be able to set an Opt-Out-Cookie (No future tracking)
-you can set a link e.g. in your imprint as follows:
+#### `opt-out`
+Your visitors should be able to opt-out for analytics tracking. By setting the Google Analytics cookie to false tracking will be stopped. Alternatively you can also set the corresponding window variable to false:
 
 ```javascript
-import ReactGA from 'react-ga';
-
-render() {
-  return (
-    <div>
-      <ReactGA.OutboundLink
-        eventLabel="myLabel"
-        to="http://www.example.com"
-        target="_blank"
-        trackerNames={['tracker2']}
-      >
-        My Link
-      </ReactGA.OutboundLink>
-    </div>
-  );
-}
+window[`ga-disable-YOUR_TRACKING_ID_HERE`] = true
 ```
 
 ### Google Tag Manager
