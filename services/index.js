@@ -3,25 +3,25 @@ const {
   validGTMTrackingId,
   validFbPixelId,
   getCookie
-} = require('./helper')
+} = require('../helper')
 
 const {
   addGoogleAnalytics,
   initializeGoogleAnalytics,
   trackGoogleAnalytics
-} = require('./services/google-analytics')
+} = require('./google-analytics')
 
 const {
   addGoogleTagManager,
   initializeGoogleTagManager,
   trackGoogleTagManager
-} = require('./services/google-tag-manager')
+} = require('./google-tag-manager')
 
 const {
   addFacebookPixel,
   initializeFacebookPixel,
   trackFacebookPixel
-} = require('./services/facebook')
+} = require('./facebook')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
