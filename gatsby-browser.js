@@ -5,8 +5,6 @@ import { initializeAndTrack } from './index'
 
 // init
 export const onClientEntry = (_, pluginOptions = {}) => {
-  const options = merge(defaultOptions, pluginOptions)
-  window.gatsbyPluginGDPRCookiesOptions = options
   window.gatsbyPluginGDPRCookiesGoogleAnalyticsAdded = false
   window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = false
   window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
@@ -28,6 +26,9 @@ export const onClientEntry = (_, pluginOptions = {}) => {
       googleTagManager.defaultDataLayer.value = googleTagManager.defaultDataLayer.value.toString()
     }
   }
+
+  const options = merge(defaultOptions, pluginOptions)
+  window.gatsbyPluginGDPRCookiesOptions = options
 }
 
 // track
