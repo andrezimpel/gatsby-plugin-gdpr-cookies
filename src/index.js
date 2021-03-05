@@ -1,19 +1,41 @@
-var _require = require('./services'),
-    initializeAndTrackGoogleAnalytics = _require.initializeAndTrackGoogleAnalytics,
-    initializeAndTrackGoogleTagManager = _require.initializeAndTrackGoogleTagManager,
-    initializeAndTrackFacebookPixel = _require.initializeAndTrackFacebookPixel;
+const {
+  initializeAndTrackGoogleAnalytics,
+  initializeAndTrackGoogleTagManager,
+  initializeAndTrackFacebookPixel,
+} = require('./services')
 
-exports.initializeAndTrack = function (location) {
-  var options = window.gatsbyPluginGDPRCookiesOptions;
+exports.initializeAndTrack = (location) => {
+  const options = window.gatsbyPluginGDPRCookiesOptions
 
   if (location === undefined || location === null) {
-    console.error('Please provide a reach router location to the initializeAndTrack function.');
+    console.error('Please provide a reach router location to the initializeAndTrack function.')
   } else {
-    initializeAndTrackGoogleAnalytics(options.googleAnalytics, location);
-    initializeAndTrackGoogleTagManager(options.googleTagManager, location);
-    initializeAndTrackFacebookPixel(options.facebookPixel);
+    initializeAndTrackGoogleAnalytics(options.googleAnalytics, location)
+    initializeAndTrackGoogleTagManager(options.googleTagManager, location)
+    initializeAndTrackFacebookPixel(options.facebookPixel)
   }
-}; // import Cookies from "universal-cookie"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import Cookies from "universal-cookie"
 //
 // import {
 //   validGATrackingId,
@@ -36,20 +58,20 @@ exports.initializeAndTrack = function (location) {
 //     cookies.get(options.googleAnalytics.cookieName) === `true` &&
 //     validGATrackingId(options)
 //   ) {
-// window.dataLayer = window.dataLayer || [];
-// window.gtag = function(){window.dataLayer.push(arguments);}
-// window.gtag('js', new Date())
-// window[`ga-disable-${options.googleAnalytics.trackingId}`] = false
-//
-// let gaAnonymize = options.googleAnalytics.anonymize
-// let gaAllowAdFeatures = options.googleAnalytics.allowAdFeatures
-// gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
-// gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
-//
-// window.gtag('config', options.googleAnalytics.trackingId, {
-//   'anonymize_ip': gaAnonymize,
-//   'allow_google_signals': gaAllowAdFeatures
-// })
+    // window.dataLayer = window.dataLayer || [];
+    // window.gtag = function(){window.dataLayer.push(arguments);}
+    // window.gtag('js', new Date())
+    // window[`ga-disable-${options.googleAnalytics.trackingId}`] = false
+    //
+    // let gaAnonymize = options.googleAnalytics.anonymize
+    // let gaAllowAdFeatures = options.googleAnalytics.allowAdFeatures
+    // gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
+    // gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
+    //
+    // window.gtag('config', options.googleAnalytics.trackingId, {
+    //   'anonymize_ip': gaAnonymize,
+    //   'allow_google_signals': gaAllowAdFeatures
+    // })
 //     window.GoogleAnalyticsIntialized = true
 //   } else {
 //     window[`ga-disable-${options.googleAnalytics.trackingId}`] = true

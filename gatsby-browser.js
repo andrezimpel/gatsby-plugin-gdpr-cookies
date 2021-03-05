@@ -1,37 +1,53 @@
-import merge from "lodash/merge"
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
 
-import { defaultOptions } from "./default-options"
-import { initializeAndTrack } from './index'
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.onRouteUpdate = exports.onClientEntry = void 0;
+
+var _merge = _interopRequireDefault(require("lodash/merge"));
+
+var _defaultOptions = require("./default-options");
+
+var _index = require("./index");
 
 // init
-export const onClientEntry = (_, pluginOptions = {}) => {
-  window.gatsbyPluginGDPRCookiesGoogleAnalyticsAdded = false
-  window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = false
-  window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
+var onClientEntry = function onClientEntry(_, pluginOptions) {
+  if (pluginOptions === void 0) {
+    pluginOptions = {};
+  }
 
-  window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false
-  window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false
-  window.gatsbyPluginGDPRCookiesFacebookPixelInitialized = false
+  window.gatsbyPluginGDPRCookiesGoogleAnalyticsAdded = false;
+  window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = false;
+  window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false;
+  window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false;
+  window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false;
+  window.gatsbyPluginGDPRCookiesFacebookPixelInitialized = false; // google tag manager setup
 
-  // google tag manager setup
-  const { googleTagManager } = pluginOptions
+  var _pluginOptions = pluginOptions,
+      googleTagManager = _pluginOptions.googleTagManager;
 
   if (googleTagManager && googleTagManager.defaultDataLayer) {
     googleTagManager.defaultDataLayer = {
       type: typeof googleTagManager.defaultDataLayer,
-      value: googleTagManager.defaultDataLayer,
-    }
+      value: googleTagManager.defaultDataLayer
+    };
 
-    if (googleTagManager.defaultDataLayer.type === `function`) {
-      googleTagManager.defaultDataLayer.value = googleTagManager.defaultDataLayer.value.toString()
+    if (googleTagManager.defaultDataLayer.type === "function") {
+      googleTagManager.defaultDataLayer.value = googleTagManager.defaultDataLayer.value.toString();
     }
   }
 
-  const options = merge(defaultOptions, pluginOptions)
-  window.gatsbyPluginGDPRCookiesOptions = options
-}
+  var options = (0, _merge.default)(_defaultOptions.defaultOptions, pluginOptions);
+  window.gatsbyPluginGDPRCookiesOptions = options;
+}; // track
 
-// track
-export const onRouteUpdate = ({ location }) => {
-  initializeAndTrack(location)
-}
+
+exports.onClientEntry = onClientEntry;
+
+var onRouteUpdate = function onRouteUpdate(_ref) {
+  var location = _ref.location;
+  (0, _index.initializeAndTrack)(location);
+};
+
+exports.onRouteUpdate = onRouteUpdate;
