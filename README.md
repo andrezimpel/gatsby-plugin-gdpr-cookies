@@ -155,11 +155,11 @@ This gatsby plugin now supports initializing and tracking right after a user acc
 import { useLocation } from "@reach/router" // this helps tracking the location
 import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
 ```
-Then you can execute `initializeAndTrack(location)` in your cookie banner callback. This will initialize the plugin with your options from the `gatsby-config.js` and then starts tracking the user based on the cookies/services are accepted.
+Then you can execute `initializeAndTrack(useLocation)` in your cookie banner callback. This will initialize the plugin with your options from the `gatsby-config.js` and then starts tracking the user based on the cookies/services are accepted.
 
 ```javascript
 // in your cookie banner
-initializeAndTrack(location)
+initializeAndTrack(useLocation)
 ```
 
 ## Contributors
