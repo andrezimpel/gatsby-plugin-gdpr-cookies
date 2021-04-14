@@ -1,4 +1,4 @@
-export default {
+export const defaultOptions = {
   environments: [`production`],
   googleAnalytics: {
     cookieName: `gatsby-gdpr-google-analytics`,
@@ -8,9 +8,9 @@ export default {
   googleTagManager: {
     cookieName: `gatsby-gdpr-google-tagmanager`,
     dataLayerName: `dataLayer`,
-    routeChangeEvent: `gatsbyRouteChange`,
+    routeChangeEvent: `gatsbyRouteChange`
   },
   facebookPixel: {
-    cookieName: `gatsby-gdpr-facebook-pixel`,
-  },
+    cookieName: `gatsby-gdpr-facebook-pixel`
+  }
 }

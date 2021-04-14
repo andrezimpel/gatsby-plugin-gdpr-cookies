@@ -1,19 +1,37 @@
 import merge from "lodash/merge"
 
-import defaultOptions from "./default-options"
-import { initializePlugin, trackVisit } from './index';
+import { defaultOptions } from "./default-options"
+import { initializeAndTrack } from './index'
 
 // init
-
 export const onClientEntry = (_, pluginOptions = {}) => {
-  const options = merge(defaultOptions, pluginOptions)
-  window.gatsbyPluginGDPRCookiesOptions = options;
+  window.gatsbyPluginGDPRCookiesGoogleAnalyticsAdded = false
+  window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = false
+  window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
 
-  initializePlugin(options);
+  window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false
+  window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false
+  window.gatsbyPluginGDPRCookiesFacebookPixelInitialized = false
+
+  // google tag manager setup
+  const { googleTagManager } = pluginOptions
+
+  if (googleTagManager && googleTagManager.defaultDataLayer) {
+    googleTagManager.defaultDataLayer = {
+      type: typeof googleTagManager.defaultDataLayer,
+      value: googleTagManager.defaultDataLayer,
+    }
+
+    if (googleTagManager.defaultDataLayer.type === `function`) {
+      googleTagManager.defaultDataLayer.value = googleTagManager.defaultDataLayer.value.toString()
+    }
+  }
+
+  const options = merge(defaultOptions, pluginOptions)
+  window.gatsbyPluginGDPRCookiesOptions = options
 }
 
 // track
-export const onRouteUpdate = ({ location }, pluginOptions = {}) => {
-  const options = merge(defaultOptions, pluginOptions)
-  trackVisit(options, location);
+export const onRouteUpdate = ({ location }) => {
+  initializeAndTrack(location)
 }

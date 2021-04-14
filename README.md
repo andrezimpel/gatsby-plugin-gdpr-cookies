@@ -2,7 +2,9 @@
 
 Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager and Facebook Pixel in a GDPR form to your site.
 
-**Important:** It now supports tracking right away without reloading the page. [See here](#initialize-and-track).
+**Version 2:** I did rewrite the whole plugin to remove all the ssr that was done before. This will ensure that no data is ever sent before the cookies are set to true and the plugin has been initialized. There are **no braking changes**. The configuration is exactly the same and and `initializeAndTrack(location)` does still work as before. I also removed some dependencies to keep the bundle size as small as possible.
+
+*Feedback is much appreciated* 🖖🏽
 
 ## Install
 
@@ -159,6 +161,7 @@ Then you can execute `initializeAndTrack(location)` in your cookie banner callba
 
 ```javascript
 // in your cookie banner
+const location = useLocation()
 initializeAndTrack(location)
 ```
 
