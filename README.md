@@ -161,6 +161,7 @@ Then you can execute `initializeAndTrack(location)` in your cookie banner callba
 
 ```javascript
 // in your cookie banner
+const location = useLocation()
 initializeAndTrack(location)
 ```
 
