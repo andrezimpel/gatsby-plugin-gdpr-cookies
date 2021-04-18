@@ -28,7 +28,7 @@ exports.initializeAndTrackGoogleAnalytics = (options, location) => {
     getCookie(options.cookieName) === `true` &&
     validGATrackingId(options)
   ) {
-    addGoogleAnalytics(options.trackingId).then((status) => {
+    addGoogleAnalytics(options).then((status) => {
       if (status) {
         initializeGoogleAnalytics(options)
         trackGoogleAnalytics(options, location)
