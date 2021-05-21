@@ -2,7 +2,7 @@
 
 Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager and Facebook Pixel in a GDPR form to your site.
 
-**Version 2:** I did rewrite the whole plugin to remove all the ssr that was done before. This will ensure that no data is ever sent before the cookies are set to true and the plugin has been initialized. There are **no braking changes**. The configuration is exactly the same and and `initializeAndTrack(location)` does still work as before. I also removed some dependencies to keep the bundle size as small as possible.
+**Version 2:** I did rewrite the whole plugin to remove all the ssr that was done before. This will ensure that no data is ever sent before the cookies are set to true and the plugin has been initialized. There are **no breaking changes**. The configuration is exactly the same and and `initializeAndTrack(location)` does still work as before. I also removed some dependencies to keep the bundle size as small as possible.
 
 *Feedback is much appreciated* 🖖🏽
 
