@@ -180,3 +180,5 @@ Thanks goes to these wonderful people who helped shaping this project.
 [Paul Brickles](https://github.com/pbrickles)
 
 [Ferran Buireu](https://github.com/fbuireu)
+
+[Hahlh B](https://github.com/Hahlh)
