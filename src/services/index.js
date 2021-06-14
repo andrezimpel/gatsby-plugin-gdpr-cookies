@@ -30,8 +30,11 @@ exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   ) {
     addGoogleAnalytics(options).then((status) => {
       if (status) {
-        initializeGoogleAnalytics(options)
-        trackGoogleAnalytics(options, location)
+        if (!window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized) {
+          initializeGoogleAnalytics(options, location)
+        } else {
+          trackGoogleAnalytics(options, location)
+        }
       }
     })
   }
