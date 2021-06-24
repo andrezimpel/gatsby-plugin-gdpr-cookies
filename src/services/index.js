@@ -98,7 +98,7 @@ exports.initializeAndTrackTikTokPixel = (options) => {
   }
 }
 
-exports.initializeAndTrackHotjarPixel = (options) => {
+exports.initializeAndTrackHotjar = (options) => {
   if (
     getCookie(options.cookieName) === `true` &&
     validHotjarId(options)
