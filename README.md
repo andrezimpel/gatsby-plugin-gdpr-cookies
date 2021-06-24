@@ -1,6 +1,6 @@
 # gatsby-plugin-gdpr-cookies
 
-Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager and Facebook Pixel in a GDPR form to your site.
+Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager, Facebook Pixel, TikTok Pixel and Hotjar in a GDPR form to your site.
 
 **Version 2:** I did rewrite the whole plugin to remove all the ssr that was done before. This will ensure that no data is ever sent before the cookies are set to true and the plugin has been initialized. There are **no breaking changes**. The configuration is exactly the same and and `initializeAndTrack(location)` does still work as before. I also removed some dependencies to keep the bundle size as small as possible.
 
@@ -39,6 +39,11 @@ module.exports = {
         tikTokPixel: {
           pixelId: 'YOUR_TIKTOK_PIXEL_ID', // leave empty if you want to disable the tracker
           cookieName: 'gatsby-gdpr-tiktok-pixel', // default
+        },
+        hotjar: {
+          hjid: 'YOUR_HOTJAR_ID',
+          hjsv: 'YOUR_HOTJAR_SNIPPET_VERSION',
+          cookieName: 'gatsby-gdpr-hotjar', // default
         },
         // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
@@ -158,6 +163,20 @@ You can use a custom cookie name if you need to!
 #### `pixelId`
 
 Here you place your TikTok Pixel ID.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
+### Hotjar
+
+#### `hjid`
+
+Stands for 'Hotjar ID' - Your site's ID. This is the ID which tells Hotjar which site settings it should load and where it should save the data collected.
+
+#### `hjsv`
+
+Stands for 'Hotjar Snippet Version' - The version of the Tracking Code you are using. This is only needed if Hotjar ever updates the Tracking Code and needs to discontinue older ones. Knowing which version your site includes allows hotjar team to contact you and inform you accordingly.
 
 #### `cookieName`
 
