@@ -8,7 +8,7 @@ exports.addHotjar = (options) => {
     if (window.gatsbyPluginGDPRCookiesHotjarAdded) return resolve(true)
 
     /* eslint-disable */
-    (function(h,o,t,j,a,r){
+    !(function(h,o,t,j,a,r){
         h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
         h._hjSettings={hjid:options.hjid,hjsv:options.hjsv};
         a=o.getElementsByTagName('head')[0];
