@@ -34,6 +34,6 @@ exports.initializeHotjar = (options) => {
   }
 }
 
-exports.trackHojar = (options) => {
+exports.trackHotjar = (options) => {
   // this is supposed to so nothing
 }
