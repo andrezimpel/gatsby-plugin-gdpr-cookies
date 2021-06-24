@@ -14,6 +14,12 @@ exports.validTikTokPixelId = options =>
   options.pixelId &&
   options.pixelId.trim() !== ``
 
+exports.validHotjarId = options =>
+  options.hjid &&
+  options.hjid.trim() !== `` &&
+  options.hjsv &&
+  options.hjsv.trim() !== ``
+
 exports.getCookie = name => {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
   return v ? v[2] : null;

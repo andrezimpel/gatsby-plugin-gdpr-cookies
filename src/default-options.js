@@ -15,5 +15,8 @@ export const defaultOptions = {
   },
   tikTokPixel: {
     cookieName: `gatsby-gdpr-tiktok-pixel`
+  },
+  hotjar: {
+    cookieName: `gatsby-gdpr-hotjar`
   }
 }

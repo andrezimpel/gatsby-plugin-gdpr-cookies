@@ -3,6 +3,7 @@ const {
   validGTMTrackingId,
   validFbPixelId,
   validTikTokPixelId,
+  validHotjarId,
   getCookie
 } = require('../helper')
 
@@ -29,6 +30,12 @@ const {
   initializeTikTokPixel,
   trackTikTokPixel
 } = require('./tiktok')
+
+const {
+  addHotjar,
+  initializeHotjar,
+  trackHotjar
+} = require('./hotjar')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -86,6 +93,20 @@ exports.initializeAndTrackTikTokPixel = (options) => {
       if (status) {
         initializeTikTokPixel(options)
         trackTikTokPixel(options)
+      }
+    })
+  }
+}
+
+exports.initializeAndTrackHotjarPixel = (options) => {
+  if (
+    getCookie(options.cookieName) === `true` &&
+    validHotjarId(options)
+  ) {
+    addHotjar(options).then((status) => {
+      if (status) {
+        initializeHotjar(options)
+        trackHotjar(options)
       }
     })
   }
