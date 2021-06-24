@@ -36,6 +36,10 @@ module.exports = {
           pixelId: 'YOUR_FACEBOOK_PIXEL_ID', // leave empty if you want to disable the tracker
           cookieName: 'gatsby-gdpr-facebook-pixel', // default
         },
+        tikTokPixel: {
+          pixelId: 'YOUR_TIKTOK_PIXEL_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-tiktok-pixel', // default
+        },
         // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
       },
@@ -144,6 +148,16 @@ In order to do that, go to _Tags_. Under _Triggering_ click the pencil icon, the
 #### `pixelId`
 
 Here you place your Facebook Pixel ID.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
+### TikTok Pixel
+
+#### `pixelId`
+
+Here you place your TikTok Pixel ID.
 
 #### `cookieName`
 

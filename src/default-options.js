@@ -12,5 +12,8 @@ export const defaultOptions = {
   },
   facebookPixel: {
     cookieName: `gatsby-gdpr-facebook-pixel`
+  },
+  tikTokPixel: {
+    cookieName: `gatsby-gdpr-tiktok-pixel`
   }
 }

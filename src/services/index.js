@@ -2,6 +2,7 @@ const {
   validGATrackingId,
   validGTMTrackingId,
   validFbPixelId,
+  validTikTokPixelId,
   getCookie
 } = require('../helper')
 
@@ -22,6 +23,12 @@ const {
   initializeFacebookPixel,
   trackFacebookPixel
 } = require('./facebook')
+
+const {
+  addTikTokPixel,
+  initializeTikTokPixel,
+  trackTikTokPixel
+} = require('./tiktok')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -65,6 +72,20 @@ exports.initializeAndTrackFacebookPixel = (options) => {
       if (status) {
         initializeFacebookPixel(options)
         trackFacebookPixel(options)
+      }
+    })
+  }
+}
+
+exports.initializeAndTrackTikTokPixel = (options) => {
+  if (
+    getCookie(options.cookieName) === `true` &&
+    validTikTokPixelId(options)
+  ) {
+    addTikTokPixel().then((status) => {
+      if (status) {
+        initializeTikTokPixel(options)
+        trackTikTokPixel(options)
       }
     })
   }

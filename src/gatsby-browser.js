@@ -1,17 +1,18 @@
-import merge from "lodash/merge"
-
 import { defaultOptions } from "./default-options"
 import { initializeAndTrack } from './index'
+import merge from "lodash/merge"
 
 // init
 export const onClientEntry = (_, pluginOptions = {}) => {
   window.gatsbyPluginGDPRCookiesGoogleAnalyticsAdded = false
   window.gatsbyPluginGDPRCookiesGoogleTagManagerAdded = false
   window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
+  window.gatsbyPluginGDPRCookiesTikTokPixelAdded = false
 
   window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false
   window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false
   window.gatsbyPluginGDPRCookiesFacebookPixelInitialized = false
+  window.gatsbyPluginGDPRCookiesTikTokPixelInitialized = false
 
   // google tag manager setup
   const { googleTagManager } = pluginOptions
