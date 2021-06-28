@@ -20,7 +20,7 @@ exports.addGoogleAnalytics = ({ trackingId }) => {
   });
 }
 
-exports.initializeGoogleAnalytics = (options, location) => {
+exports.initializeGoogleAnalytics = (options) => {
   if (
     !window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized &&
     getCookie(options.cookieName) === `true` &&
@@ -35,12 +35,10 @@ exports.initializeGoogleAnalytics = (options, location) => {
     gaAnonymize = gaAnonymize !== undefined ? gaAnonymize : true
     gaAllowAdFeatures = gaAllowAdFeatures !== undefined ? gaAllowAdFeatures : true
 
-    const pagePath = location ? location.pathname + location.search + location.hash : undefined
-
     window.gtag('config', options.trackingId, {
       'anonymize_ip': gaAnonymize,
       'allow_google_signals': gaAllowAdFeatures,
-      'page_path': pagePath
+      'send_page_view': false
     })
 
     window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = true
