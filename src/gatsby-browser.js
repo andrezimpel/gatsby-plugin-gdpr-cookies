@@ -9,12 +9,14 @@ export const onClientEntry = (_, pluginOptions = {}) => {
   window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
   window.gatsbyPluginGDPRCookiesTikTokPixelAdded = false
   window.gatsbyPluginGDPRCookiesHotjarAdded = false
+   window.gatsbyPluginGDPRCookiesDynamicsMarketingAdded = false 
 
   window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false
   window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false
   window.gatsbyPluginGDPRCookiesFacebookPixelInitialized = false
   window.gatsbyPluginGDPRCookiesTikTokPixelInitialized = false
   window.gatsbyPluginGDPRCookiesHotjarInitialized = false
+  window.gatsbyPluginGDPRCookiesDynamicsMarketingInitialized = false
 
   // google tag manager setup
   const { googleTagManager } = pluginOptions
