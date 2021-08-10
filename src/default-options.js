@@ -18,5 +18,9 @@ export const defaultOptions = {
   },
   hotjar: {
     cookieName: `gatsby-gdpr-hotjar`
+  },
+  dynamicsMarketing: {
+    cookieName: `gatsby-gdpr-dynamics-marketing`, 
+    className: `d365-mkt-config hidden`
   }
 }
