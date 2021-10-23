@@ -6,9 +6,9 @@ const {
 exports.addChatwoot = (options) => {
   return new Promise((resolve, reject) => {
     if (window.gatsbyPluginGDPRCookiesChatwootAdded) return resolve(true)
-    
+
     /* eslint-disable */
-    (function(d,t) {
+    !(function(d,t) {
       var BASE_URL=options.baseUrl;
       var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
       g.src=BASE_URL+"/packs/js/sdk.js";
