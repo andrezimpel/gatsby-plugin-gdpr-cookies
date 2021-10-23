@@ -45,6 +45,15 @@ module.exports = {
           hjsv: 'YOUR_HOTJAR_SNIPPET_VERSION',
           cookieName: 'gatsby-gdpr-hotjar', // default
         },
+        dynamicsMarketing: {
+          id: "YOUR_ID_FROM_DYNAMICS_MARKETING", //leave empty if you want to disable the tracker 
+          script: "YOUR_DYNAMICS_MARKETING_TRACKING_SCRIPT", 
+          formScript: "YOUR_DYNAMICS_MARKETING_FORM_SCRIPT",
+          className: "d365-mkt-config", // default
+          websiteId: "YOUR_DYNAMICS_MARKETING_DATA_WEBSITE_ID", 
+          dataHostName: "YOUR_DYNAMICS_MARKETING_DATA_HOSTNAME", 
+          cookieName: "gatsby-gdpr-dynamics-marketing", // default 
+        }
         // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
       },
@@ -181,6 +190,49 @@ Stands for 'Hotjar Snippet Version' - The version of the Tracking Code you are u
 #### `cookieName`
 
 You can use a custom cookie name if you need to!
+
+### Dynamics Marketing
+
+Add the following div tags to all pages that are to be tracked
+Replace values with parameters from gatsby.config file:
+
+```
+<div id = ""></div>      
+<div 
+  className = "d365-mkt-config hidden"
+  data-website-id = ""
+  data-hostname = ""
+></div>
+```
+
+#### `id`
+
+Your Marketing site's ID. 
+
+#### `script`
+
+Your tracking script from dynamics marketing. 
+
+#### `formScript`
+
+Your script for Marketing forms. 
+
+#### `className`
+
+Default is 'd365-mkt-config hidden'. Div class 
+
+#### `websiteId`
+
+Your Marketing data-website-id. 
+
+#### `dataHostName`
+
+Your Marketing data-hostName. 
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to! 
+
 
 ## Initialize and track
 This gatsby plugin now supports initializing and tracking right after a user accepts the cookie consent.

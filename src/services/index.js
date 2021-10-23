@@ -4,6 +4,7 @@ const {
   validFbPixelId,
   validTikTokPixelId,
   validHotjarId,
+  validDMId,
   getCookie
 } = require('../helper')
 
@@ -36,6 +37,12 @@ const {
   initializeHotjar,
   trackHotjar
 } = require('./hotjar')
+
+const {
+  addDynamicsMarketing,
+  initializeDynamicsMarketing,
+  trackDynamicsMarketing
+} = require('./dynamics-marketing')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -107,6 +114,20 @@ exports.initializeAndTrackHotjar = (options) => {
       if (status) {
         initializeHotjar(options)
         trackHotjar(options)
+      }
+    })
+  }
+}
+
+exports.initializeAndTrackDynamicsMarketing = (options) => {
+  if(
+    getCookie(options.cookieName) === `true` &&
+    validDMId(options)
+  ) {
+    addDynamicsMarketing(options).then((status) => {
+      if(status) {
+        initializeDynamicsMarketing(options)
+        trackDynamicsMarketing(options)
       }
     })
   }

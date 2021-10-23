@@ -20,6 +20,12 @@ exports.validHotjarId = options =>
   options.hjsv &&
   options.hjsv.trim() !== ``
 
+exports.validDMId = options => 
+  options.id &&
+  options.id.trim() !== `` &&
+  options.websiteId && 
+  options.websiteId.trim() !== ``
+
 exports.getCookie = name => {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
   return v ? v[2] : null;
