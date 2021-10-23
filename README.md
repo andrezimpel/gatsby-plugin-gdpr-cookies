@@ -182,6 +182,22 @@ Stands for 'Hotjar Snippet Version' - The version of the Tracking Code you are u
 
 You can use a custom cookie name if you need to!
 
+### Chatwoot
+
+Chatwoot is an open source customer engagement platform. This plugin manages installing and initializing Chatwoot if the respective cookie is true.
+
+#### `baseUrl`
+
+You can find the base url within your inbox.
+
+#### `websiteToken`
+
+You can find the website token within your inbox.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
 ## Initialize and track
 This gatsby plugin now supports initializing and tracking right after a user accepts the cookie consent.
 
