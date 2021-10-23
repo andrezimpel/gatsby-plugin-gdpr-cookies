@@ -4,6 +4,7 @@ const {
   validFbPixelId,
   validTikTokPixelId,
   validHotjarId,
+  validChatwootConfig,
   getCookie
 } = require('../helper')
 
@@ -36,6 +37,10 @@ const {
   initializeHotjar,
   trackHotjar
 } = require('./hotjar')
+
+const {
+  addChatwoot
+} = require('./chatwoot')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -107,6 +112,19 @@ exports.initializeAndTrackHotjar = (options) => {
       if (status) {
         initializeHotjar(options)
         trackHotjar(options)
+      }
+    })
+  }
+}
+
+exports.initializeChatwoot = (options) => {
+  if (
+    getCookie(options.cookieName) === `true` &&
+    validChatwootConfig(options)
+  ) {
+    addChatwoot(options).then((status) => {
+      if (status) {
+        console.info('Chat is added and running')
       }
     })
   }

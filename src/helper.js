@@ -20,6 +20,12 @@ exports.validHotjarId = options =>
   options.hjsv &&
   options.hjsv.trim() !== ``
 
+exports.validChatwootConfig = options =>
+  options.baseUrl &&
+  options.baseUrl.trim() !== `` &&
+  options.websiteToken &&
+  options.websiteToken.trim() !== ``
+
 exports.getCookie = name => {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
   return v ? v[2] : null;

@@ -18,5 +18,8 @@ export const defaultOptions = {
   },
   hotjar: {
     cookieName: `gatsby-gdpr-hotjar`
+  },
+  chatwoot: {
+    cookieName: 'gatsby-gdpr-chatwoot'
   }
 }

@@ -9,6 +9,7 @@ export const onClientEntry = (_, pluginOptions = {}) => {
   window.gatsbyPluginGDPRCookiesFacebookPixelAdded = false
   window.gatsbyPluginGDPRCookiesTikTokPixelAdded = false
   window.gatsbyPluginGDPRCookiesHotjarAdded = false
+  window.gatsbyPluginGDPRCookiesChatwootAdded = false
 
   window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized = false
   window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized = false

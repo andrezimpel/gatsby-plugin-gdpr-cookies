@@ -3,7 +3,8 @@ const {
   initializeAndTrackGoogleTagManager,
   initializeAndTrackFacebookPixel,
   initializeAndTrackTikTokPixel,
-  initializeAndTrackHotjar
+  initializeAndTrackHotjar,
+  initializeChatwoot
 } = require('./services')
 
 const { isEnvironmentValid } = require('./helper')
@@ -20,6 +21,7 @@ exports.initializeAndTrack = (location) => {
       initializeAndTrackFacebookPixel(options.facebookPixel)
       initializeAndTrackTikTokPixel(options.tikTokPixel)
       initializeAndTrackHotjar(options.hotjar)
+      initializeChatwoot(options.chatwoot)
     }
   }
 }
