@@ -5,6 +5,7 @@ const {
   validTikTokPixelId,
   validHotjarId,
   validChatwootConfig,
+  validLinkedinTrackingId,
   getCookie
 } = require('../helper')
 
@@ -41,6 +42,11 @@ const {
 const {
   addChatwoot
 } = require('./chatwoot')
+
+const {
+  addLinkedin,
+  initializeLinkedin
+} = require('./linkedin')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -112,6 +118,19 @@ exports.initializeAndTrackHotjar = (options) => {
       if (status) {
         initializeHotjar(options)
         trackHotjar(options)
+      }
+    })
+  }
+}
+
+exports.initializeLinkedin = (options) => {
+  if (
+    getCookie(options.cookieName) === `true` &&
+    validLinkedinTrackingId(options)
+  ) {
+    addLinkedin(options).then((status) => {
+      if (status) {
+        initializeLinkedin(options)
       }
     })
   }

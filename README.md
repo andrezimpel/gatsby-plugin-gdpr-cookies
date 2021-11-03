@@ -45,6 +45,10 @@ module.exports = {
           hjsv: 'YOUR_HOTJAR_SNIPPET_VERSION',
           cookieName: 'gatsby-gdpr-hotjar', // default
         },
+        linkedin: {
+          trackingId: 'YOUR_LINKEDIN_TRACKING_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-linked-in', // default
+        },
         // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
       },
@@ -193,6 +197,16 @@ You can find the base url within your inbox.
 #### `websiteToken`
 
 You can find the website token within your inbox.
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
+### LinkedIn
+
+#### `trackingId`
+
+Here you place your LinkedIn tracking ID.
 
 #### `cookieName`
 
