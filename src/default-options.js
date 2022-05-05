@@ -21,5 +21,8 @@ export const defaultOptions = {
   },
   chatwoot: {
     cookieName: 'gatsby-gdpr-chatwoot'
+  },
+  linkedin: {
+    cookieName: 'gatsby-gdpr-linkedin'
   }
 }
