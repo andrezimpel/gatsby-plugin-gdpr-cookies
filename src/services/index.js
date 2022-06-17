@@ -6,7 +6,8 @@ const {
   validHotjarId,
   validChatwootConfig,
   validLinkedinTrackingId,
-  getCookie
+  getCookie,
+  validYandexMetrikaTrackingId
 } = require('../helper')
 
 const {
@@ -47,6 +48,12 @@ const {
   addLinkedin,
   initializeLinkedin
 } = require('./linkedin')
+
+const {
+  addYandexMetrika,
+  initializeYandexMetrika,
+  trackYandexMetrika
+} = require('./yandex-metrika')
 
 exports.initializeAndTrackGoogleAnalytics = (options, location) => {
   if (
@@ -144,6 +151,20 @@ exports.initializeChatwoot = (options) => {
     addChatwoot(options).then((status) => {
       if (status) {
         console.info('Chat is added and running')
+      }
+    })
+  }
+}
+
+exports.initializeAndTrackYandexMetrika = (options, location) => {
+  if (
+    getCookie(options.cookieName) === `true` &&
+    validYandexMetrikaTrackingId(options)
+  ) {
+    addYandexMetrika(options).then((status) => {
+      if (status) {
+        initializeYandexMetrika(options)
+        trackYandexMetrika(options, location)
       }
     })
   }

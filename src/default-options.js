@@ -24,5 +24,20 @@ export const defaultOptions = {
   },
   linkedin: {
     cookieName: 'gatsby-gdpr-linkedin'
+  },
+  yandexMetrika: {
+    cookieName: 'gatsby-gdpr-yandex-metrika',
+    accurateTrackBounce: true,
+    childIframe: false,
+    clickmap: true,
+    defer: false,
+    ecommerce: false,
+    trackHash: false,
+    trackLinks: true,
+    trustedDomains: null,
+    type: 0,
+    webvisor: false,
+    triggerEvent: false,
+    useCDN: true,
   }
 }
