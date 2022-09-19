@@ -1,6 +1,6 @@
 const {
   validFbPixelId,
-  getCookie
+  isCookieEnabled
 } = require('../helper')
 
 exports.addFacebookPixel = () => {
@@ -42,7 +42,7 @@ exports.addFacebookPixel = () => {
 exports.initializeFacebookPixel = (options) => {
   if (
     !window.gatsbyPluginGDPRCookiesFacebookPixelInitialized &&
-    getCookie(options.cookieName) === `true` &&
+      isCookieEnabled(options.cookieName) &&
     validFbPixelId(options)
   ) {
     window.fbq(`init`, options.pixelId)
@@ -53,7 +53,7 @@ exports.initializeFacebookPixel = (options) => {
 
 exports.trackFacebookPixel = (options) => {
   if (
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validFbPixelId(options) &&
     typeof window.fbq === "function"
   ) {

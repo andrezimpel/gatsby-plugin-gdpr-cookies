@@ -1,6 +1,6 @@
 const {
   validHotjarId,
-  getCookie
+  isCookieEnabled
 } = require('../helper')
 
 exports.addHotjar = (options) => {
@@ -27,7 +27,7 @@ exports.addHotjar = (options) => {
 exports.initializeHotjar = (options) => {
   if (
     !window.gatsbyPluginGDPRCookiesHotjarInitialized &&
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validHotjarId(options)
   ) {
     window.gatsbyPluginGDPRCookiesHotjarInitialized = true

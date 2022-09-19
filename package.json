@@ -1,8 +1,8 @@
 {
-  "name": "gatsby-plugin-gdpr-cookies",
-  "description": "Gatsby plugin to add google analytics, google tag manager facebook pixel, tik tok pixel and hotjar in a gdpr form to your site. Consent coming soon.",
-  "version": "2.0.9",
-  "author": "Andre Zimpel <andre@unknownbasics.com>",
+  "name": "gatsby-plugin-gdpr-cookies-klyngen",
+  "description": "Gatsby plugin to add google analytics, google tag manager facebook pixel, tik tok pixel and hotjar in a gdpr form to your site. Consent coming soon. Forked",
+  "version": "2.1.2",
+  "author": "Andre Zimpel <andre@unknownbasics.com>; Martin Klingenberg",
   "bugs": {
     "url": "https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies/issues"
   },
@@ -26,10 +26,8 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.21.4",
-    "lodash": "^4.17.20",
     "prettier": "^2.1.2"
   },
-  "homepage": "https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies#readme",
   "keywords": [
     "gatsby",
     "gatsby-plugin",
@@ -54,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies.git"
+    "url": "git+https://github.com/klyngen/gatsby-plugin-gdpr-cookies-klyngen.git"
   },
   "scripts": {
     "build": "babel src --out-dir . --ignore **/__tests__",
