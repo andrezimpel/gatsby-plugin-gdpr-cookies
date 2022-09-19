@@ -1,4 +1,4 @@
-const { validGTMTrackingId, getCookie } = require(`../helper`)
+const { validGTMTrackingId, isCookieEnabled } = require(`../helper`)
 
 exports.addGoogleTagManager = (
   { trackingId, dataLayerName },
@@ -47,7 +47,7 @@ exports.initializeGoogleTagManager = (options) => {
   // console.log(`initing tag manager`)
   if (
     !window.gatsbyPluginGDPRCookiesGoogleTagManagerInitialized &&
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validGTMTrackingId(options)
   ) {
     window.dataLayer = window.dataLayer || []
@@ -72,7 +72,7 @@ exports.initializeGoogleTagManager = (options) => {
 exports.trackGoogleTagManager = (options, location) => {
   // console.log(`tracking tag manager`)
   if (
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validGTMTrackingId(options) &&
     typeof window.gtag === `function`
   ) {

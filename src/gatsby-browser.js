@@ -1,6 +1,5 @@
 import { defaultOptions } from "./default-options"
 import { initializeAndTrack } from './index'
-import merge from "lodash/merge"
 
 // init
 export const onClientEntry = (_, pluginOptions = {}) => {
@@ -33,7 +32,8 @@ export const onClientEntry = (_, pluginOptions = {}) => {
     }
   }
 
-  const options = merge(defaultOptions, pluginOptions)
+  const options = { ...defaultOptions, ...pluginOptions }
+
   window.gatsbyPluginGDPRCookiesOptions = options
 }
 

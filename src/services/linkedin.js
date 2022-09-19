@@ -1,6 +1,6 @@
 const {
   validLinkedinTrackingId,
-  getCookie
+  isCookieEnabled
 } = require('../helper')
 
 exports.addLinkedin = (options) => {
@@ -23,7 +23,7 @@ exports.addLinkedin = (options) => {
 exports.initializeLinkedin = (options) => {
   if (
     !window.gatsbyPluginGDPRCookiesLinkedinInitialized &&
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validLinkedinTrackingId(options)
   ) {
     // (function(){

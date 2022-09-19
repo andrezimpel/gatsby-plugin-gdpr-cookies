@@ -1,6 +1,6 @@
 const {
   validGATrackingId,
-  getCookie
+  isCookieEnabled
 } = require('../helper')
 
 exports.addGoogleAnalytics = ({ trackingId }) => {
@@ -23,7 +23,7 @@ exports.addGoogleAnalytics = ({ trackingId }) => {
 exports.initializeGoogleAnalytics = (options) => {
   if (
     !window.gatsbyPluginGDPRCookiesGoogleAnalyticsInitialized &&
-    getCookie(options.cookieName) === `true` &&
+      isCookieEnabled(options.cookieName) &&
     validGATrackingId(options)
   ) {
     window.dataLayer = window.dataLayer || [];
@@ -46,7 +46,7 @@ exports.initializeGoogleAnalytics = (options) => {
 
 exports.trackGoogleAnalytics = (options, location) => {
   if (
-    getCookie(options.cookieName) === `true` &&
+    isCookieEnabled(options.cookieName) &&
     validGATrackingId(options) &&
     typeof window.gtag === "function"
   ) {
