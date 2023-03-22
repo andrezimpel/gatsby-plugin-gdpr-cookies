@@ -1,7 +1,9 @@
 const { validGTMTrackingId, getCookie } = require(`../helper`)
 
+const GOOGLE_TAG_MANAGER_TRANSPORT_URL = 'https://www.googletagmanager.com';
+
 exports.addGoogleTagManager = (
-  { trackingId, dataLayerName },
+  { trackingId, dataLayerName, transportUrl, firstPartyCollection },
   environmentParamStr
 ) => {
   return new Promise((resolve, reject) => {
@@ -20,7 +22,7 @@ exports.addGoogleTagManager = (
         dl = l != "dataLayer" ? "&l=" + l : ""
       j.async = true
       j.src =
-        "https://www.googletagmanager.com/gtm.js?id=" +
+        `${firstPartyCollection ? transportUrl : GOOGLE_TAG_MANAGER_TRANSPORT_URL}/gtm.js?id=` +
         i +
         dl +
         environmentParamStr
@@ -30,7 +32,9 @@ exports.addGoogleTagManager = (
 
     const iframe = document.createElement(`iframe`)
     iframe.key = `gatsby-plugin-gdpr-cookies-google-tagmanager-iframe`
-    iframe.src = `https://www.googletagmanager.com/ns.html?id=${trackingId}${environmentParamStr}`
+    iframe.src = `${
+      firstPartyCollection ? transportUrl : GOOGLE_TAG_MANAGER_TRANSPORT_URL
+    }/ns.html?id=${trackingId}${environmentParamStr}`
     iframe.height = 0
     iframe.width = 0
     iframe.style = `display: none; visibility: hidden`
@@ -65,6 +69,8 @@ exports.initializeGoogleTagManager = (options) => {
     window.gtag(`config`, options.trackingId, {
       anonymize_ip: gaAnonymize,
       allow_google_signals: gaAllowAdFeatures,
+      transport_url: options.firstPartyCollection ? options.transportUrl : GOOGLE_TAG_MANAGER_TRANSPORT_URL,
+      first_party_collection: options.firstPartyCollection
     })
   }
 }
