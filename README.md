@@ -144,6 +144,17 @@ Data layer to be set before GTM is loaded. Should be an object or a function tha
   }
 ```
 
+#### `transportUrl`
+
+Use this when using a server side Google Tag manager proxy. Will replace https://www.googletagmanager.com with YOUR_DOMAIN.
+
+See more at [developers.google.com](https://developers.google.com/tag-platform/tag-manager/server-side/send-data).
+
+#### `firstPartyCollection`
+
+Used when using a server side Google Tag manager proxy. Defaults to `false` and must be set to `true` when `transportUrl`
+is set.
+
 #### Tracking routes
 
 Out of the box this plugin will simply load Google Tag Manager on the initial page/app load. It’s up to you to fire tags based on changes in your app.

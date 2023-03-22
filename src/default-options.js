@@ -8,7 +8,9 @@ export const defaultOptions = {
   googleTagManager: {
     cookieName: `gatsby-gdpr-google-tagmanager`,
     dataLayerName: `dataLayer`,
-    routeChangeEvent: `gatsbyRouteChange`
+    routeChangeEvent: `gatsbyRouteChange`,
+    transportUrl: ``,
+    firstPartyCollection: false
   },
   facebookPixel: {
     cookieName: `gatsby-gdpr-facebook-pixel`
