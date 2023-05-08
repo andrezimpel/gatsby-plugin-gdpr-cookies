@@ -49,6 +49,22 @@ module.exports = {
           trackingId: 'YOUR_LINKEDIN_TRACKING_ID', // leave empty if you want to disable the tracker
           cookieName: 'gatsby-gdpr-linked-in', // default
         },
+        yandexMetrika, {
+          trackingId: 'YOUR_YANDEX_METRIKA_TRACKING_ID', // leave empty if you want to disable the tracker
+          cookieName: 'gatsby-gdpr-yandex-metrika', // default
+          accurateTrackBounce: true, //default
+          childIframe: false, //default
+          clickmap: true, //default
+          defer: false, //default
+          ecommerce: false, //default
+          trackHash: false, //default
+          trackLinks: true, //default
+          trustedDomains: null, //default
+          type: 0, //default
+          webvisor: false, //default
+          triggerEvent: false, //default
+          useCDN: true, //default
+        }
         // defines the environments where the tracking should be available  - default is ["production"]
         environments: ['production', 'development']
       },
@@ -211,6 +227,65 @@ Here you place your LinkedIn tracking ID.
 #### `cookieName`
 
 You can use a custom cookie name if you need to!
+
+### Yandex Metrika
+
+#### `cookieName`
+
+You can use a custom cookie name if you need to!
+
+#### `trackingId`
+
+The ID of Yandex Metrika.
+
+### `accurateTrackBounce`
+
+Accurate bounce rate. The parameter can accept `Boolean | Number` see [Yandex support docs](https://yandex.com/support/metrica/code/counter-initialize.html) for more info.
+
+### `childIframe`
+
+Boolean which determines[ whether to record iframe contents](https://yandex.com/support/metrica/webvisor-v2/iframe-support.html#iframe-support) without a tag in a child window, or not.
+
+### `clickmap`
+
+Boolean which determines whether to collect data for a click map, or not.
+
+### `defer`
+
+Boolean which determines whether to disable automatically sending data during tag initialization, or not.
+
+### `ecommerce`
+
+Boolean, String, or Array for collecting E-commerce data. See [Yandex support docs](https://yandex.com/support/metrica/code/counter-initialize.html) for more info.
+
+### `trackHash`
+
+Boolean which determines whether to track hashes in the browser's address bar, or not.
+
+### `trackLinks`
+
+Boolean which determines whether to track clicks on outbound links, or not.
+
+### `trustedDomains`
+
+Array which indicates trusted domains for recording the contents of a child iframe.
+
+### `type`
+
+Number for determine Tag type. Default is 0, while 1 will switch to YAN.
+
+### `webvisor`
+
+Boolean which determins whether to use Session replay, or not.
+
+### `triggerEvent`
+
+Boolean which checkers whether the tag is ready, or not.
+
+#### `useCDN`
+
+Boolean which allows the counting of visits from regions where access to Yandex resources are limited. Using the CDN address may decrease the loading time of the script. The default value is `true`.
+
 
 ## Initialize and track
 This gatsby plugin now supports initializing and tracking right after a user accepts the cookie consent.

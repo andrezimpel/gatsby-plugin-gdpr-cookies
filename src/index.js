@@ -5,7 +5,8 @@ const {
   initializeAndTrackTikTokPixel,
   initializeAndTrackHotjar,
   initializeChatwoot,
-  initializeLinkedin
+  initializeLinkedin,
+  initializeAndTrackYandexMetrika,
 } = require('./services')
 
 const { isEnvironmentValid } = require('./helper')
@@ -24,6 +25,7 @@ exports.initializeAndTrack = (location) => {
       initializeAndTrackHotjar(options.hotjar)
       initializeChatwoot(options.chatwoot)
       initializeLinkedin(options.linkedin)
+      initializeAndTrackYandexMetrika(options.yandexMetrika, location)
     }
   }
 }

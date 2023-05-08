@@ -30,6 +30,10 @@ exports.validLinkedinTrackingId = options =>
   options.trackingId &&
   options.trackingId.trim() !== ``  
 
+exports.validYandexMetrikaTrackingId = options =>
+  options.trackingId &&
+  options.trackingId.trim() !== ``
+
 exports.getCookie = name => {
   var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
   return v ? v[2] : null;
