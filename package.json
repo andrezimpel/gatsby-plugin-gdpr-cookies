@@ -1,7 +1,7 @@
 {
   "name": "gatsby-plugin-gdpr-cookies",
   "description": "Gatsby plugin to add google analytics, google tag manager facebook pixel, tik tok pixel and hotjar in a gdpr form to your site. Consent coming soon.",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "author": "Andre Zimpel <andre@unknownbasics.com>",
   "bugs": {
     "url": "https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies/issues"
