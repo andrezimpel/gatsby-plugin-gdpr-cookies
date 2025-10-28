@@ -1,10 +1,10 @@
 {
-  "name": "gatsby-plugin-gdpr-cookies",
+  "name": "@mediporta/gatsby-plugin-gdpr-cookies",
   "description": "Gatsby plugin to add google analytics, google tag manager facebook pixel, tik tok pixel and hotjar in a gdpr form to your site. Consent coming soon.",
   "version": "2.0.9",
   "author": "Andre Zimpel <andre@unknownbasics.com>",
   "bugs": {
-    "url": "https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies/issues"
+    "url": "https://github.com/mediporta/gatsby-plugin-gdpr-cookies/issues"
   },
   "dependencies": {
     "@babel/runtime": "^7.11.2"
@@ -29,7 +29,7 @@
     "lodash": "^4.17.20",
     "prettier": "^2.1.2"
   },
-  "homepage": "https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies#readme",
+  "homepage": "https://github.com/mediporta/gatsby-plugin-gdpr-cookies#readme",
   "keywords": [
     "gatsby",
     "gatsby-plugin",
@@ -54,15 +54,26 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/andrezimpel/gatsby-plugin-gdpr-cookies.git"
+    "url": "git+https://github.com/mediporta/gatsby-plugin-gdpr-cookies.git"
   },
   "scripts": {
     "build": "babel src --out-dir . --ignore **/__tests__",
-    "prepare": "cross-env NODE_ENV=production npm run build",
+    "prepublishOnly": "npm run build",
     "watch": "babel -w src --out-dir . --ignore **/__tests__",
     "format": "eslint ./src --ext js,jsx --fix"
   },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "files": [
+    "index.js",
+    "gatsby-browser.js",
+    "services",
+    "index.d.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
   }
 }

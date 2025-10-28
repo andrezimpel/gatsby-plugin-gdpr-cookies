@@ -1,4 +1,4 @@
-# gatsby-plugin-gdpr-cookies
+# @mediporta/gatsby-plugin-gdpr-cookies
 
 Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager, Facebook Pixel, TikTok Pixel and Hotjar in a GDPR form to your site.
 
@@ -8,9 +8,9 @@ Gatsby plugin to add Google Analytics (V4 is supported), Google Tag Manager, Fac
 
 ## Install
 
-`yarn add gatsby-plugin-gdpr-cookies`
+`yarn add @mediporta/gatsby-plugin-gdpr-cookies`
 or
-`npm install --save gatsby-plugin-gdpr-cookies`
+`npm install --save @mediporta/gatsby-plugin-gdpr-cookies`
 
 ## How to use
 
@@ -19,7 +19,7 @@ or
 module.exports = {
   plugins: [
     {
-      resolve: `gatsby-plugin-gdpr-cookies`,
+      resolve: `@mediporta/gatsby-plugin-gdpr-cookies`,
       options: {
         googleAnalytics: {
           trackingId: 'YOUR_GOOGLE_ANALYTICS_TRACKING_ID', // leave empty if you want to disable the tracker
@@ -218,7 +218,7 @@ This gatsby plugin now supports initializing and tracking right after a user acc
 ```javascript
 // in your cookie banner
 import { useLocation } from "@reach/router" // this helps tracking the location
-import { initializeAndTrack } from 'gatsby-plugin-gdpr-cookies'
+import { initializeAndTrack } from '@mediporta/gatsby-plugin-gdpr-cookies'
 ```
 Then you can execute `initializeAndTrack(location)` in your cookie banner callback. This will initialize the plugin with your options from the `gatsby-config.js` and then starts tracking the user based on the cookies/services are accepted.
 
